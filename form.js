@@ -18,7 +18,7 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
   #fdlg .dlg-head{padding:22px 26px}
   #fdlg .dlg-head .eyebrow{opacity:.82}
   #fdlg form{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
-  .fbody{padding:22px 26px 8px;overflow:auto;flex:1;min-height:0}
+  .fbody{padding:22px 26px 8px;overflow:auto;flex:1;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
   .fsec{margin-bottom:22px}
   .fsec:last-child{margin-bottom:6px}
   .fsec-h{display:flex;align-items:center;gap:9px;margin-bottom:14px}
@@ -180,6 +180,7 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
     try { const s = JSON.parse(localStorage.getItem('supForm') || 'null'); if (s) { fSuper.value = s.sup || ''; fPass.value = s.pass || ''; fRemember.checked = true; } } catch (e) {}
     msg(SCRIPT_URL ? '' : 'ยังไม่ได้เชื่อมต่อกับชีต — ต้องตั้งค่า SCRIPT_URL ใน form.js ก่อนจึงจะบันทึกได้', 'warn');
     d.showModal();
+    if (typeof fitOpenDialogs === 'function') fitOpenDialogs();
     const names = await loadStaff();
     fillTeacherSelect(names.length ? names : DATA.map(x => x.teacher).filter((v, i, a) => a.indexOf(v) === i));
   };
