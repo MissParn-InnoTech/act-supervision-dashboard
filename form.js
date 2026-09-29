@@ -10,6 +10,7 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
     'การจัดบรรยากาศและสิ่งแวดล้อมการเรียนรู้'
   ];
   const SCALE = ['ปรับปรุง', 'พอใช้', 'ปานกลาง', 'ดี', 'ดีมาก'];
+  const SPORTS = ['ฟุตบอล', 'ฟุตซอล', 'บาสเกตบอล', 'วอลเลย์บอล', 'แบดมินตัน', 'เทเบิลเทนนิส', 'ว่ายน้ำ', 'กรีฑา', 'เปตอง', 'ตะกร้อ', 'รักบี้ฟุตบอล', 'ยิมนาสติก', 'เทนนิส', 'มวยไทย', 'อื่นๆ'];
 
   const css = `
   .f-btn{background:#fff;color:var(--navy)}.f-btn:hover{background:#ffe0e2}
@@ -100,14 +101,21 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
             <div class="fg"><label for="fTeacher">ชื่อครูพลศึกษาผู้รับการนิเทศ <span class="req">*</span></label>
               <div class="fsel-wrap"><select id="fTeacher" required><option value="">กำลังโหลดรายชื่อ…</option></select></div>
             </div>
-            <div class="fg"><label for="fSubject">วิชา/กีฬา / ชั้นปี <span class="req">*</span></label><input id="fSubject" list="fSubjects" required placeholder="เช่น พลศึกษา (ฟุตบอล) ม.2"><datalist id="fSubjects"></datalist></div>
+            <div class="fg"><label for="fSport">ชนิดกีฬา <span class="req">*</span></label>
+              <div class="fsel-wrap"><select id="fSport" required>
+                <option value="">— เลือกชนิดกีฬา —</option>
+                ${SPORTS.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('')}
+              </select></div>
+            </div>
           </div>
+          <div class="fg" id="fSportOtherWrap" style="display:none"><label for="fSportOther">ระบุชนิดกีฬา <span class="req">*</span></label><input id="fSportOther" placeholder="เช่น เซปักตะกร้อ"></div>
           <div class="frow">
+            <div class="fg"><label for="fClassLevel">ชั้นปี <span class="req">*</span></label><input id="fClassLevel" list="fClassLevels" required placeholder="เช่น ม.2"><datalist id="fClassLevels"></datalist></div>
             <div class="fg"><label for="fSuper">ชื่อผู้นิเทศ <span class="req">*</span></label><input id="fSuper" list="fSupers" required><datalist id="fSupers"></datalist></div>
-            <div class="fg"><label for="fPass">รหัสผู้นิเทศ <span class="req">*</span></label>
-              <div class="fpass-wrap"><input id="fPass" type="password" required autocomplete="off">
-                <button type="button" class="fpass-eye" id="fPassToggle" aria-label="แสดงรหัสผ่าน">${ic('eye')}</button>
-              </div>
+          </div>
+          <div class="fg"><label for="fPass">รหัสผู้นิเทศ <span class="req">*</span></label>
+            <div class="fpass-wrap"><input id="fPass" type="password" required autocomplete="off">
+              <button type="button" class="fpass-eye" id="fPassToggle" aria-label="แสดงรหัสผ่าน">${ic('eye')}</button>
             </div>
           </div>
         </div>
@@ -140,6 +148,14 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
     inp.type = inp.type === 'password' ? 'text' : 'password';
   };
 
+  const sportOtherWrap = document.getElementById('fSportOtherWrap'), sportOther = document.getElementById('fSportOther');
+  document.getElementById('fSport').onchange = function () {
+    const isOther = this.value === 'อื่นๆ';
+    sportOtherWrap.style.display = isOther ? '' : 'none';
+    sportOther.required = isOther;
+    if (!isOther) sportOther.value = '';
+  };
+
   let STAFF = null;
   async function loadStaff() {
     if (STAFF) return STAFF;
@@ -158,7 +174,9 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
 
   document.getElementById('btnAdd').onclick = async () => {
     fillTeacherSelect(['กำลังโหลดรายชื่อ…']);
-    opts('fSubjects', DATA.map(x => x.subject)); opts('fSupers', DATA.map(x => x.sup));
+    opts('fClassLevels', DATA.map(x => (x.subject.match(/\)\s*(.+)$/) || [])[1]).filter(Boolean));
+    opts('fSupers', DATA.map(x => x.sup));
+    sportOtherWrap.style.display = 'none'; sportOther.required = false; sportOther.value = '';
     try { const s = JSON.parse(localStorage.getItem('supForm') || 'null'); if (s) { fSuper.value = s.sup || ''; fPass.value = s.pass || ''; fRemember.checked = true; } } catch (e) {}
     msg(SCRIPT_URL ? '' : 'ยังไม่ได้เชื่อมต่อกับชีต — ต้องตั้งค่า SCRIPT_URL ใน form.js ก่อนจึงจะบันทึกได้', 'warn');
     d.showModal();
@@ -195,8 +213,10 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
     ev.preventDefault();
     if (!SCRIPT_URL) return msg('ยังไม่ได้ตั้งค่า SCRIPT_URL', 'err');
     const btn = document.getElementById('fSubmit'); btn.disabled = true; btn.textContent = 'กำลังบันทึก…'; msg('');
+    const sport = fSport.value === 'อื่นๆ' ? fSportOther.value.trim() : fSport.value;
+    const subject = `พลศึกษา (${sport}) ${fClassLevel.value.trim()}`.trim();
     const payload = {
-      passcode: fPass.value, teacher: fTeacher.value, subject: fSubject.value, supervisor: fSuper.value, note: fNote.value,
+      passcode: fPass.value, teacher: fTeacher.value, subject, supervisor: fSuper.value, note: fNote.value,
       scores: CRITERIA.map((_, i) => +form.querySelector(`input[name=s${i}]:checked`).value)
     };
     const submittedAt = Date.now();
