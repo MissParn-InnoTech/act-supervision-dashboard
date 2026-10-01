@@ -198,13 +198,424 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
 <footer>ข้อมูลอัปเดตอัตโนมัติจาก Google Sheets · พัฒนาโดย ACT Sport Center</footer>
 
 <dialog id="dlg">
-  <div class="dlg-head">
-    <div><div class="eyebrow" id="dSub"></div><h2 style="color:#fff;font-size:22px" id="dName"></h2><div id="dBadge" style="margin-top:8px"></div></div>
-    <button class="x" onclick="dlg.close()" aria-label="ปิด"><span data-ic="x"></span></button>
-  </div>
-  <div class="dlg-body" id="dBody"></div>
-</dialog>
 
+  <div class="dlg-head">
+
+    <div>
+      <div class="eyebrow">ACT SPORT CENTER</div>
+
+      <h2 style="color:#fff;font-size:22px">
+        บันทึกการนิเทศการสอน
+      </h2>
+
+      <div style="font-size:13px;opacity:.8;margin-top:3px">
+        ระบบนิเทศการสอนวิชาพลศึกษา
+      </div>
+    </div>
+
+    <button
+      class="x"
+      onclick="dlg.close()"
+      aria-label="ปิด"
+      type="button">
+      <span data-ic="x"></span>
+    </button>
+
+  </div>
+
+
+  <div class="dlg-body">
+
+    <form id="supervisionForm">
+
+      <div class="form-grid">
+
+        <!-- ครู -->
+        <div class="form-group full">
+          <label class="form-label">
+            ครูผู้รับการนิเทศ <span>*</span>
+          </label>
+
+          <input
+            class="form-control"
+            id="formTeacher"
+            name="teacher"
+            type="text"
+            placeholder="เช่น ครูสมชาย ใจดี"
+            required>
+        </div>
+
+
+        <!-- วิชา / ระดับ -->
+        <div class="form-group">
+          <label class="form-label">
+            วิชา / ระดับชั้น <span>*</span>
+          </label>
+
+          <input
+            class="form-control"
+            id="formSubject"
+            name="subject"
+            type="text"
+            placeholder="เช่น พลศึกษา ม.2"
+            required>
+        </div>
+
+
+        <!-- ชนิดกีฬา -->
+        <div class="form-group">
+
+          <label class="form-label">
+            ชนิดกีฬา <span>*</span>
+          </label>
+
+          <select
+            class="form-control"
+            id="formSport"
+            name="sport"
+            required>
+
+            <option value="">เลือกชนิดกีฬา</option>
+
+            <option value="ฟุตบอล">ฟุตบอล</option>
+            <option value="ฟุตซอล">ฟุตซอล</option>
+            <option value="บาสเกตบอล">บาสเกตบอล</option>
+            <option value="วอลเลย์บอล">วอลเลย์บอล</option>
+            <option value="แบดมินตัน">แบดมินตัน</option>
+            <option value="เทเบิลเทนนิส">เทเบิลเทนนิส</option>
+            <option value="เทนนิส">เทนนิส</option>
+            <option value="ว่ายน้ำ">ว่ายน้ำ</option>
+            <option value="กรีฑา">กรีฑา</option>
+            <option value="ยิมนาสติก">ยิมนาสติก</option>
+            <option value="แชร์บอล">แชร์บอล</option>
+            <option value="กิจกรรมนันทนาการ">กิจกรรมนันทนาการ</option>
+            <option value="อื่น ๆ">อื่น ๆ</option>
+
+          </select>
+
+        </div>
+
+
+        <!-- ผู้นิเทศ -->
+        <div class="form-group full">
+
+          <label class="form-label">
+            ผู้นิเทศ <span>*</span>
+          </label>
+
+          <input
+            class="form-control"
+            id="formSupervisor"
+            name="supervisor"
+            type="text"
+            placeholder="ชื่อผู้นิเทศ"
+            required>
+
+        </div>
+
+
+        <!-- คะแนน -->
+        <div class="form-group full">
+
+          <label class="form-label">
+            คะแนนการนิเทศ
+          </label>
+
+          <div class="score-grid">
+
+            <div class="score-item">
+              <label>ด้าน 1</label>
+              <select class="form-control" id="score1">
+                <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div class="score-item">
+              <label>ด้าน 2</label>
+              <select class="form-control" id="score2">
+                <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div class="score-item">
+              <label>ด้าน 3</label>
+              <select class="form-control" id="score3">
+                <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div class="score-item">
+              <label>ด้าน 4</label>
+              <select class="form-control" id="score4">
+                <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div class="score-item">
+              <label>ด้าน 5</label>
+              <select class="form-control" id="score5">
+                <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ข้อเสนอแนะ -->
+        <div class="form-group full">
+
+          <label class="form-label">
+            ข้อเสนอแนะ
+          </label>
+
+          <textarea
+            class="form-control"
+            id="formNote"
+            name="note"
+            placeholder="บันทึกข้อเสนอแนะ หรือประเด็นที่ควรพัฒนา..."></textarea>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="formStatus"
+        class="form-status">
+      </div>
+
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="btn btn-cancel"
+          onclick="dlg.close()">
+          ยกเลิก
+        </button>
+
+        <button
+          type="submit"
+          class="btn btn-save">
+          <span data-ic="check"></span>
+          บันทึกข้อมูล
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</dialog>
+/* ==============================
+   RESPONSIVE INPUT FORM
+   ============================== */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.form-group.full{
+  grid-column:1/-1;
+}
+
+.form-label{
+  font-size:13px;
+  font-weight:600;
+  color:var(--text);
+}
+
+.form-label span{
+  color:var(--navy2);
+}
+
+.form-control{
+  width:100%;
+  min-width:0;
+  min-height:44px;
+  padding:10px 13px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--input);
+  color:var(--text);
+  font-family:inherit;
+  font-size:14px;
+  transition:.15s;
+}
+
+.form-control:focus{
+  outline:none;
+  border-color:var(--navy2);
+  box-shadow:0 0 0 3px rgba(232,55,75,.12);
+}
+
+textarea.form-control{
+  min-height:100px;
+  resize:vertical;
+}
+
+.score-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+}
+
+.score-item{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.score-item label{
+  font-size:12px;
+  color:var(--muted);
+  text-align:center;
+}
+
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+
+.btn-save{
+  background:var(--navy2);
+  color:#fff;
+  min-height:44px;
+  padding:10px 22px;
+}
+
+.btn-save:hover{
+  background:var(--navy);
+}
+
+.btn-cancel{
+  background:var(--chip);
+  color:var(--text);
+  min-height:44px;
+}
+
+.form-status{
+  display:none;
+  margin-top:14px;
+  padding:12px 14px;
+  border-radius:10px;
+  font-size:13px;
+}
+
+.form-status.success{
+  display:block;
+  background:rgba(50,180,100,.12);
+  color:#70d99a;
+}
+
+.form-status.error{
+  display:block;
+  background:rgba(232,55,75,.12);
+  color:#ff8b98;
+}
+
+@media(max-width:600px){
+
+  dialog{
+    width:calc(100% - 16px);
+    max-width:none;
+    max-height:94vh;
+    border-radius:16px;
+  }
+
+  .dlg-head{
+    padding:18px 18px;
+  }
+
+  .dlg-body{
+    padding:18px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+    gap:13px;
+  }
+
+  .form-group.full{
+    grid-column:auto;
+  }
+
+  .score-grid{
+    grid-template-columns:repeat(5,1fr);
+    gap:5px;
+  }
+
+  .score-item select{
+    padding-left:4px;
+    padding-right:4px;
+    text-align:center;
+  }
+
+  .form-actions{
+    position:sticky;
+    bottom:0;
+    background:var(--card);
+    margin-left:-18px;
+    margin-right:-18px;
+    margin-bottom:-18px;
+    padding:14px 18px;
+  }
+
+  .form-actions .btn{
+    flex:1;
+    justify-content:center;
+  }
+}
+
+@media(max-width:380px){
+
+  .score-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+  
 <script>
 const SHEET_ID = '1cMsTnDg4FzIujdaAwea18wxCD24mfs_c0l4yWPSSAXg';
 const url = s => `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${s}`;
