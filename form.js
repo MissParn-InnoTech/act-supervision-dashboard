@@ -13,7 +13,7 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
   const SPORTS = ['ฟุตบอล', 'ฟุตซอล', 'บาสเกตบอล', 'วอลเลย์บอล', 'แบดมินตัน', 'เทเบิลเทนนิส', 'ว่ายน้ำ', 'กรีฑา', 'เปตอง', 'ตะกร้อ', 'รักบี้ฟุตบอล', 'ยิมนาสติก', 'เทนนิส', 'มวยไทย', 'อื่นๆ'];
 
   const css = `
-  .f-btn{background:#fff;color:var(--navy)}.f-btn:hover{background:#ffe0e2}
+  .f-btn{background:#fff;color:var(--navy);clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);padding-left:22px;padding-right:22px}.f-btn:hover{background:#ffe0e2}
   #fdlg{max-width:640px}
   #fdlg .dlg-head{padding:22px 26px}
   #fdlg .dlg-head .eyebrow{opacity:.82}
@@ -22,13 +22,13 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
   .fsec{margin-bottom:22px}
   .fsec:last-child{margin-bottom:6px}
   .fsec-h{display:flex;align-items:center;gap:9px;margin-bottom:14px}
-  .fsec-h .n{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,var(--navy2),var(--navy));color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+  .fsec-h .n{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,var(--navy2),var(--navy));color:#fff;font-family:'Chakra Petch',sans-serif;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
   .fsec-h .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--text);text-transform:uppercase;opacity:.9}
   .fsec-h .hint{margin-left:auto;font-size:12px;color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0}
   .fg{margin-bottom:14px}.fg:last-child{margin-bottom:0}
   .fg label{display:block;font-weight:600;font-size:13px;margin-bottom:7px;color:var(--muted)}
   .fg .req{color:var(--navy2)}
-  .fg input,.fg textarea,.fg select{width:100%;min-width:0;font-family:inherit;font-size:15px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--input);color:var(--text);transition:.15s;appearance:none}
+  .fg input,.fg textarea,.fg select{width:100%;min-width:0;font-family:inherit;font-size:15px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--input);color:var(--text);transition:.15s;appearance:none}
   .fg input:hover,.fg textarea:hover,.fg select:hover{border-color:#5a2a2e}
   .fg input:focus,.fg textarea:focus,.fg select:focus{outline:0;border-color:var(--navy2);box-shadow:0 0 0 3px rgba(255,71,87,.18)}
   .fg input::placeholder,.fg textarea::placeholder{color:var(--muted)}
@@ -46,13 +46,13 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
   .fq:last-child{margin-bottom:0}
   .fq:focus-within{border-color:rgba(255,71,87,.4)}
   .fq-top{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
-  .fq-num{font-size:12px;font-weight:700;color:var(--navy2);flex:none}
+  .fq-num{font-family:'Chakra Petch',sans-serif;font-size:12px;font-weight:700;color:var(--navy2);flex:none}
   .fq-t{font-weight:600;font-size:13.5px;color:var(--text);line-height:1.35}
   .seg{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
   .seg input{position:absolute;opacity:0;pointer-events:none}
-  .seg label{margin:0;text-align:center;padding:7px 2px;border-radius:9px;background:var(--chip);cursor:pointer;font-weight:700;font-size:14px;color:var(--muted);transition:.12s;line-height:1.15;border:1px solid transparent}
+  .seg label{margin:0;text-align:center;padding:7px 2px;border-radius:9px;background:var(--chip);cursor:pointer;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:14px;color:var(--muted);transition:.12s;line-height:1.15;border:1px solid transparent}
   .seg label:hover{border-color:rgba(255,71,87,.35)}
-  .seg label small{display:block;font-size:9.5px;font-weight:500;margin-top:2px;opacity:.85}
+  .seg label small{display:block;font-family:'Kanit',sans-serif;font-size:9.5px;font-weight:500;margin-top:2px;opacity:.85}
   .seg input:checked+label{background:linear-gradient(120deg,var(--navy2),var(--navy));color:#fff;border-color:transparent;box-shadow:0 3px 10px rgba(255,71,87,.35)}
   .seg input:focus-visible+label{outline:2px solid var(--navy2);outline-offset:1px}
   .fmsg{display:flex;align-items:flex-start;gap:9px;padding:11px 13px;border-radius:12px;font-size:13.5px;margin:0 26px 14px;line-height:1.45}
