@@ -28,6 +28,7 @@ body{font-family:'Kanit',system-ui,sans-serif;background:var(--bg);color:var(--t
 .hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
 .brand-row{display:flex;align-items:center;gap:16px}
 .brand-logo{width:56px;height:60px;flex:none;object-fit:contain}
+.mascot-corner{position:fixed;left:-6px;bottom:0;width:150px;height:auto;z-index:0;pointer-events:none;filter:drop-shadow(0 12px 20px rgba(0,0,0,.45))}
 .eyebrow{font-size:13px;letter-spacing:.06em;opacity:.85;font-weight:500}
 h1{font-size:clamp(26px,4vw,38px);font-weight:700;margin-top:4px;letter-spacing:-.01em}
 .sub{opacity:.85;margin-top:6px;font-size:15px;font-family:'Chakra Petch',sans-serif}
@@ -130,12 +131,14 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
   .kpi .val{font-size:30px}
   .teachers{grid-template-columns:1fr}
   .brand-logo{width:40px;height:44px}
+  .mascot-corner{width:92px;left:-4px}
 }
-@media print{:root{--bg:#ffffff;--card:#fff;--text:#1a1a1a;--muted:#666666;--line:#dddddd;--chip:#f5f5f5;--input:#fff}
+@media print{.mascot-corner{display:none}:root{--bg:#ffffff;--card:#fff;--text:#1a1a1a;--muted:#666666;--line:#dddddd;--chip:#f5f5f5;--input:#fff}
   .hero .btn,.toolbar input,.toolbar select,.toolbar .btn{display:none}.hero{padding-bottom:70px}body{background:#fff}.card{box-shadow:none;border:1px solid var(--line)}}
 </style>
 </head>
 <body>
+<img class="mascot-corner" src="mascot.png" alt="" aria-hidden="true">
 <header class="hero">
   <div class="wrap hero-top">
     <div>
