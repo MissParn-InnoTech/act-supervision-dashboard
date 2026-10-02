@@ -206,20 +206,32 @@ textarea.form-control{
 
 .score-grid{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px;
 }
+
 
 .score-item{
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:9px;
+  min-width:0;
+  padding:12px 10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--surface2);
 }
 
 .score-item label{
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  min-height:58px;
   font-size:12px;
-  color:var(--muted);
+  line-height:1.45;
+  color:var(--text);
   text-align:center;
+  overflow-wrap:anywhere;
 }
 
 .form-actions{
@@ -290,9 +302,12 @@ textarea.form-control{
   }
 
   .score-grid{
-    grid-template-columns:repeat(5,1fr);
-    gap:5px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
   }
+
+  .score-item{padding:10px 8px;}
+  .score-item label{min-height:42px;font-size:12px;}
 
   .score-item select{
     padding-left:4px;
@@ -527,7 +542,7 @@ textarea.form-control{
           <div class="score-grid">
 
             <div class="score-item">
-              <label>ด้าน 1</label>
+              <label>การเตรียมและการใช้สื่อ/นวัตกรรมการสอน</label>
               <select class="form-control" id="score1">
                 <option value="">-</option>
                 <option value="1">1</option>
@@ -539,7 +554,7 @@ textarea.form-control{
             </div>
 
             <div class="score-item">
-              <label>ด้าน 2</label>
+              <label>วิธีการสอนและการกระตุ้นการเรียนรู้</label>
               <select class="form-control" id="score2">
                 <option value="">-</option>
                 <option value="1">1</option>
@@ -551,7 +566,7 @@ textarea.form-control{
             </div>
 
             <div class="score-item">
-              <label>ด้าน 3</label>
+              <label>ลำดับขั้นตอนการจัดกิจกรรมการสอน</label>
               <select class="form-control" id="score3">
                 <option value="">-</option>
                 <option value="1">1</option>
@@ -563,7 +578,7 @@ textarea.form-control{
             </div>
 
             <div class="score-item">
-              <label>ด้าน 4</label>
+              <label>การวัดและประเมินผลในชั้นเรียน</label>
               <select class="form-control" id="score4">
                 <option value="">-</option>
                 <option value="1">1</option>
@@ -575,7 +590,7 @@ textarea.form-control{
             </div>
 
             <div class="score-item">
-              <label>ด้าน 5</label>
+              <label>การจัดบรรยากาศและสิ่งแวดล้อมการเรียนรู้</label>
               <select class="form-control" id="score5">
                 <option value="">-</option>
                 <option value="1">1</option>
