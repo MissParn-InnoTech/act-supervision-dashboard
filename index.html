@@ -206,9 +206,11 @@ textarea.form-control{
 
 .score-grid{
   display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:12px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
 }
+
+.score-hint{margin-top:-5px;margin-bottom:2px;color:var(--muted);font-size:12px;}
 
 
 .score-item{
@@ -228,7 +230,7 @@ textarea.form-control{
   flex:none;
   width:24px;
   height:24px;
-  margin:0 auto 7px;
+  margin:0;
   border-radius:7px;
   background:rgba(232,55,75,.14);
   color:var(--navy2);
@@ -237,24 +239,35 @@ textarea.form-control{
   font-weight:700;
 }
 .score-item label{
-  flex-direction:column;
-  align-items:stretch;
-  justify-content:flex-start;
-  min-height:88px;
-  gap:0;
-  overflow-wrap:normal;
-  word-break:normal;
-}
   display:flex;
+  flex-direction:row;
   align-items:flex-start;
-  justify-content:center;
-  min-height:58px;
-  font-size:12px;
-  line-height:1.45;
+  justify-content:flex-start;
+  gap:12px;
+  min-height:72px;
   color:var(--text);
-  text-align:center;
+  font-size:13px;
+  font-weight:600;
+  line-height:1.55;
+  text-align:left;
   overflow-wrap:anywhere;
 }
+.score-item label > span:last-child{display:block;flex:1;width:auto;padding-top:3px;}
+.score-number{
+  display:inline-grid;
+  place-items:center;
+  width:30px;
+  height:30px;
+  border-radius:9px;
+  background:linear-gradient(135deg,rgba(200,16,46,.22),rgba(232,55,75,.12));
+  border:1px solid rgba(232,55,75,.28);
+  color:#ff7585;
+  font-family:'Chakra Petch',sans-serif;
+  font-size:14px;
+  font-weight:700;
+}
+.score-item .form-control{margin-top:auto;border-color:#34383e;background:#111316;}
+.score-item:focus-within{border-color:rgba(232,55,75,.7);box-shadow:0 0 0 2px rgba(232,55,75,.08);}
 
 .form-actions{
   display:flex;
@@ -325,11 +338,11 @@ textarea.form-control{
 
   .score-grid{
     grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:8px;
+    gap:10px;
   }
 
-  .score-item{padding:10px 8px;}
-  .score-item label{min-height:42px;font-size:12px;}
+  .score-item{padding:12px 10px;}
+  .score-item label{min-height:0;font-size:13px;}
 
   .score-item select{
     padding-left:4px;
@@ -356,7 +369,7 @@ textarea.form-control{
 @media(max-width:380px){
 
   .score-grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:1fr;
   }
 
 }
@@ -558,8 +571,9 @@ textarea.form-control{
         <div class="form-group full">
 
           <label class="form-label">
-            คะแนนการนิเทศ
+            คะแนนการนิเทศ <span>*</span>
           </label>
+          <div class="score-hint">เลือกคะแนน 1–5 สำหรับแต่ละหัวข้อ</div>
 
           <div class="score-grid">
 
