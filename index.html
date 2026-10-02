@@ -135,6 +135,186 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
 }
 @media print{.mascot-corner{display:none}:root{--bg:#ffffff;--card:#fff;--text:#1a1a1a;--muted:#666666;--line:#dddddd;--chip:#f5f5f5;--input:#fff}
   .hero .btn,.toolbar input,.toolbar select,.toolbar .btn{display:none}.hero{padding-bottom:70px}body{background:#fff}.card{box-shadow:none;border:1px solid var(--line)}}
+
+/* ==============================
+   RESPONSIVE INPUT FORM
+   ============================== */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.form-group.full{
+  grid-column:1/-1;
+}
+
+.form-label{
+  font-size:13px;
+  font-weight:600;
+  color:var(--text);
+}
+
+.form-label span{
+  color:var(--navy2);
+}
+
+.form-control{
+  width:100%;
+  min-width:0;
+  min-height:44px;
+  padding:10px 13px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--input);
+  color:var(--text);
+  font-family:inherit;
+  font-size:14px;
+  transition:.15s;
+}
+
+.form-control:focus{
+  outline:none;
+  border-color:var(--navy2);
+  box-shadow:0 0 0 3px rgba(232,55,75,.12);
+}
+
+textarea.form-control{
+  min-height:100px;
+  resize:vertical;
+}
+
+.score-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+}
+
+.score-item{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.score-item label{
+  font-size:12px;
+  color:var(--muted);
+  text-align:center;
+}
+
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+
+.btn-save{
+  background:var(--navy2);
+  color:#fff;
+  min-height:44px;
+  padding:10px 22px;
+}
+
+.btn-save:hover{
+  background:var(--navy);
+}
+
+.btn-cancel{
+  background:var(--chip);
+  color:var(--text);
+  min-height:44px;
+}
+
+.form-status{
+  display:none;
+  margin-top:14px;
+  padding:12px 14px;
+  border-radius:10px;
+  font-size:13px;
+}
+
+.form-status.success{
+  display:block;
+  background:rgba(50,180,100,.12);
+  color:#70d99a;
+}
+
+.form-status.error{
+  display:block;
+  background:rgba(232,55,75,.12);
+  color:#ff8b98;
+}
+
+@media(max-width:600px){
+
+  dialog{
+    width:calc(100% - 16px);
+    max-width:none;
+    max-height:94vh;
+    border-radius:16px;
+  }
+
+  .dlg-head{
+    padding:18px 18px;
+  }
+
+  .dlg-body{
+    padding:18px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+    gap:13px;
+  }
+
+  .form-group.full{
+    grid-column:auto;
+  }
+
+  .score-grid{
+    grid-template-columns:repeat(5,1fr);
+    gap:5px;
+  }
+
+  .score-item select{
+    padding-left:4px;
+    padding-right:4px;
+    text-align:center;
+  }
+
+  .form-actions{
+    position:sticky;
+    bottom:0;
+    background:var(--card);
+    margin-left:-18px;
+    margin-right:-18px;
+    margin-bottom:-18px;
+    padding:14px 18px;
+  }
+
+  .form-actions .btn{
+    flex:1;
+    justify-content:center;
+  }
+}
+
+@media(max-width:380px){
+
+  .score-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
 </style>
 </head>
 <body>
@@ -150,7 +330,8 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
       <div class="sub" id="updated">กำลังโหลดข้อมูล…</div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn btn-ghost" id="btnRefresh"><span data-ic="refresh"></span>รีเฟรช</button>
+      <button class="btn btn-ghost" id="btnNew" type="button"><span data-ic="plus"></span>บันทึกการนิเทศ</button>
+      <button class="btn btn-ghost" id="btnRefresh" type="button"><span data-ic="refresh"></span>รีเฟรช</button>
       <button class="btn btn-ghost" onclick="window.print()"><span data-ic="printer"></span>พิมพ์ / PDF</button>
     </div>
   </div>
@@ -194,6 +375,20 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
   <div class="toolbar"><h2>ข้อเสนอแนะล่าสุด</h2></div>
   <section class="card"><div class="notes" id="notes"></div></section>
 </main>
+
+
+<dialog id="detailDlg" aria-labelledby="dName">
+  <div class="dlg-head">
+    <div>
+      <div class="eyebrow">ACT SPORT CENTER</div>
+      <h2 id="dName" style="color:#fff;font-size:22px"></h2>
+      <div id="dSub" style="font-size:13px;opacity:.85;margin-top:3px"></div>
+      <div id="dBadge" style="margin-top:8px"></div>
+    </div>
+    <button class="x" id="closeDetail" aria-label="ปิดรายละเอียด" type="button"><span data-ic="x"></span></button>
+  </div>
+  <div class="dlg-body" id="dBody"></div>
+</dialog>
 
 <footer>ข้อมูลอัปเดตอัตโนมัติจาก Google Sheets · พัฒนาโดย ACT Sport Center</footer>
 
@@ -435,189 +630,10 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
   </div>
 
 </dialog>
-/* ==============================
-   RESPONSIVE INPUT FORM
-   ============================== */
-
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
-}
-
-.form-group{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.form-group.full{
-  grid-column:1/-1;
-}
-
-.form-label{
-  font-size:13px;
-  font-weight:600;
-  color:var(--text);
-}
-
-.form-label span{
-  color:var(--navy2);
-}
-
-.form-control{
-  width:100%;
-  min-width:0;
-  min-height:44px;
-  padding:10px 13px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:var(--input);
-  color:var(--text);
-  font-family:inherit;
-  font-size:14px;
-  transition:.15s;
-}
-
-.form-control:focus{
-  outline:none;
-  border-color:var(--navy2);
-  box-shadow:0 0 0 3px rgba(232,55,75,.12);
-}
-
-textarea.form-control{
-  min-height:100px;
-  resize:vertical;
-}
-
-.score-grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-}
-
-.score-item{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.score-item label{
-  font-size:12px;
-  color:var(--muted);
-  text-align:center;
-}
-
-.form-actions{
-  display:flex;
-  justify-content:flex-end;
-  gap:10px;
-  margin-top:22px;
-  padding-top:18px;
-  border-top:1px solid var(--line);
-}
-
-.btn-save{
-  background:var(--navy2);
-  color:#fff;
-  min-height:44px;
-  padding:10px 22px;
-}
-
-.btn-save:hover{
-  background:var(--navy);
-}
-
-.btn-cancel{
-  background:var(--chip);
-  color:var(--text);
-  min-height:44px;
-}
-
-.form-status{
-  display:none;
-  margin-top:14px;
-  padding:12px 14px;
-  border-radius:10px;
-  font-size:13px;
-}
-
-.form-status.success{
-  display:block;
-  background:rgba(50,180,100,.12);
-  color:#70d99a;
-}
-
-.form-status.error{
-  display:block;
-  background:rgba(232,55,75,.12);
-  color:#ff8b98;
-}
-
-@media(max-width:600px){
-
-  dialog{
-    width:calc(100% - 16px);
-    max-width:none;
-    max-height:94vh;
-    border-radius:16px;
-  }
-
-  .dlg-head{
-    padding:18px 18px;
-  }
-
-  .dlg-body{
-    padding:18px;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-    gap:13px;
-  }
-
-  .form-group.full{
-    grid-column:auto;
-  }
-
-  .score-grid{
-    grid-template-columns:repeat(5,1fr);
-    gap:5px;
-  }
-
-  .score-item select{
-    padding-left:4px;
-    padding-right:4px;
-    text-align:center;
-  }
-
-  .form-actions{
-    position:sticky;
-    bottom:0;
-    background:var(--card);
-    margin-left:-18px;
-    margin-right:-18px;
-    margin-bottom:-18px;
-    padding:14px 18px;
-  }
-
-  .form-actions .btn{
-    flex:1;
-    justify-content:center;
-  }
-}
-
-@media(max-width:380px){
-
-  .score-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-}
-
-  
 <script>
 const SHEET_ID = '1cMsTnDg4FzIujdaAwea18wxCD24mfs_c0l4yWPSSAXg';
+// ใส่ URL ของ Google Apps Script Web App ที่ตั้งค่าให้บันทึกลงชีต Data
+const SCRIPT_URL = '';
 const url = s => `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${s}`;
 const $ = id => document.getElementById(id);
 function fitOpenDialogs(){
@@ -671,7 +687,7 @@ const f2 = n => n==null?'-':n.toFixed(2);
 async function load(){
   $('updated').textContent='กำลังโหลดข้อมูล…';
   try{
-    const [d,c] = await Promise.all([fetch(url('Data')).then(r=>r.text()), fetch(url('Criteria')).then(r=>r.text()).catch(()=>'')]);
+    const [d,c] = await Promise.all([fetch(url('Data')).then(r=>{if(!r.ok)throw new Error('Data HTTP '+r.status);return r.text()}), fetch(url('Criteria')).then(r=>r.ok?r.text():'').catch(()=>'')]);
     const rows = parseCSV(d);
     HEADS = rows[0] || [];
     DATA = rows.slice(1).map(r=>({
@@ -734,7 +750,7 @@ function render(){
   requestAnimationFrame(()=>document.querySelectorAll('.fill').forEach(e=>e.style.width=e.dataset.w+'%'));
 
   // donut
-  const cnt=[0,0,0,0]; teachers.forEach(t=>{if(t.avg!=null)cnt[levelIdx(t.avg)]++});
+  const cnt=LEVELS.map(()=>0); teachers.forEach(t=>{if(t.avg!=null)cnt[levelIdx(t.avg)]++});
   const tot=cnt.reduce((a,b)=>a+b,0); let acc=0;
   const stops=tot?cnt.map((c,i)=>{const s=acc/tot*100;acc+=c;return `${LV_COLOR[i]} ${s}% ${acc/tot*100}%`}).join(','):'#f3dcdb 0 100%';
   $('donut').style.background=`conic-gradient(${stops})`; $('donut').dataset.center=tot?`${tot}\nคน`:'-';
@@ -770,195 +786,53 @@ function openTeacher(t){
   <h2>ประวัติการนิเทศ (${t.count} ครั้ง)</h2>`+t.recs.slice().reverse().map(r=>`<div class="rec"><div class="rec-top"><span><b>${esc(r.ts)}</b> · ผู้นิเทศ ${esc(r.sup||'-')}</span><span>เฉลี่ย <b>${f2(avg(r.scores))}</b> ${badge(avg(r.scores))}</span></div>
   <div style="margin-top:8px;color:var(--muted);font-size:13px">${r.scores.map((s,i)=>`ด้าน ${i+1}: <b style="color:var(--text)">${s??'-'}</b>`).join(' · ')}</div>
   ${r.note?`<div class="note" style="margin-top:12px">${esc(r.note)}</div>`:''}</div>`).join('');
-  $('dlg').showModal();
+  $('detailDlg').showModal();
   fitOpenDialogs();
 }
 
-  /* ==============================
-   RESPONSIVE INPUT FORM
-   ============================== */
-
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
-}
-
-.form-group{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.form-group.full{
-  grid-column:1/-1;
-}
-
-.form-label{
-  font-size:13px;
-  font-weight:600;
-  color:var(--text);
-}
-
-.form-label span{
-  color:var(--navy2);
-}
-
-.form-control{
-  width:100%;
-  min-width:0;
-  min-height:44px;
-  padding:10px 13px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:var(--input);
-  color:var(--text);
-  font-family:inherit;
-  font-size:14px;
-  transition:.15s;
-}
-
-.form-control:focus{
-  outline:none;
-  border-color:var(--navy2);
-  box-shadow:0 0 0 3px rgba(232,55,75,.12);
-}
-
-textarea.form-control{
-  min-height:100px;
-  resize:vertical;
-}
-
-.score-grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-}
-
-.score-item{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.score-item label{
-  font-size:12px;
-  color:var(--muted);
-  text-align:center;
-}
-
-.form-actions{
-  display:flex;
-  justify-content:flex-end;
-  gap:10px;
-  margin-top:22px;
-  padding-top:18px;
-  border-top:1px solid var(--line);
-}
-
-.btn-save{
-  background:var(--navy2);
-  color:#fff;
-  min-height:44px;
-  padding:10px 22px;
-}
-
-.btn-save:hover{
-  background:var(--navy);
-}
-
-.btn-cancel{
-  background:var(--chip);
-  color:var(--text);
-  min-height:44px;
-}
-
-.form-status{
-  display:none;
-  margin-top:14px;
-  padding:12px 14px;
-  border-radius:10px;
-  font-size:13px;
-}
-
-.form-status.success{
-  display:block;
-  background:rgba(50,180,100,.12);
-  color:#70d99a;
-}
-
-.form-status.error{
-  display:block;
-  background:rgba(232,55,75,.12);
-  color:#ff8b98;
-}
-
-@media(max-width:600px){
-
-  dialog{
-    width:calc(100% - 16px);
-    max-width:none;
-    max-height:94vh;
-    border-radius:16px;
-  }
-
-  .dlg-head{
-    padding:18px 18px;
-  }
-
-  .dlg-body{
-    padding:18px;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-    gap:13px;
-  }
-
-  .form-group.full{
-    grid-column:auto;
-  }
-
-  .score-grid{
-    grid-template-columns:repeat(5,1fr);
-    gap:5px;
-  }
-
-  .score-item select{
-    padding-left:4px;
-    padding-right:4px;
-    text-align:center;
-  }
-
-  .form-actions{
-    position:sticky;
-    bottom:0;
-    background:var(--card);
-    margin-left:-18px;
-    margin-right:-18px;
-    margin-bottom:-18px;
-    padding:14px 18px;
-  }
-
-  .form-actions .btn{
-    flex:1;
-    justify-content:center;
-  }
-}
-
-@media(max-width:380px){
-
-  .score-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-}
-
 ['q','fSup','fSub','sort'].forEach(id=>$(id).addEventListener('input',render));
-$('btnRefresh').onclick=load;
+$('btnRefresh').addEventListener('click',load);
+$('btnNew').addEventListener('click',()=>{
+  $('supervisionForm').reset();
+  $('formStatus').className='form-status';
+  $('formStatus').textContent='';
+  $('dlg').showModal();
+  fitOpenDialogs();
+});
+$('closeDetail').addEventListener('click',()=>$('detailDlg').close());
 $('dlg').addEventListener('click',e=>{if(e.target===$('dlg'))$('dlg').close()});
-load(); setInterval(()=>{if(!demo&&!$('dlg').open)load()},120000);
+$('detailDlg').addEventListener('click',e=>{if(e.target===$('detailDlg'))$('detailDlg').close()});
+$('supervisionForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const status=$('formStatus'), submit=$('supervisionForm').querySelector('[type="submit"]');
+  if(!SCRIPT_URL){
+    status.className='form-status error';
+    status.textContent='ยังไม่ได้ตั้งค่าการเชื่อมต่อสำหรับบันทึกข้อมูล กรุณากำหนด SCRIPT_URL เป็น URL ของ Google Apps Script Web App ก่อน';
+    return;
+  }
+  const payload={
+    timestamp:new Date().toISOString(),
+    teacher:$('formTeacher').value.trim(), subject:$('formSubject').value.trim(),
+    sport:$('formSport').value, supervisor:$('formSupervisor').value.trim(),
+    scores:[1,2,3,4,5].map(i=>$('score'+i).value), note:$('formNote').value.trim()
+  };
+  submit.disabled=true; submit.textContent='กำลังบันทึก…';
+  status.className='form-status'; status.textContent='';
+  try{
+    const response=await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+    if(!response.ok) throw new Error('HTTP '+response.status);
+    const result=await response.json().catch(()=>({}));
+    if(result.success===false) throw new Error(result.message||'บันทึกไม่สำเร็จ');
+    status.className='form-status success'; status.textContent='ส่งข้อมูลเรียบร้อยแล้ว';
+    $('supervisionForm').reset();
+    await load();
+  }catch(err){
+    status.className='form-status error';
+    status.textContent='บันทึกไม่สำเร็จ กรุณาตรวจสอบ URL/สิทธิ์ของ Apps Script และลองอีกครั้ง';
+    console.error('Save supervision failed:',err);
+  }finally{submit.disabled=false; submit.innerHTML='<span data-ic="check"></span> บันทึกข้อมูล'; hydrateIcons($('supervisionForm'));}
+});
+load(); setInterval(()=>{if(!demo&&!$('dlg').open&&!$('detailDlg').open)load()},120000);
 </script>
-<script src="form.js"></script>
 </body>
 </html>
