@@ -103,11 +103,15 @@ input:focus,select:focus{outline:2px solid var(--navy2);border-color:transparent
 .empty{text-align:center;padding:50px 20px;color:var(--muted)}
 .empty h3{color:var(--text);margin:8px 0 6px}
 .criteria{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-dialog{border:0;border-radius:18px;padding:0;max-width:none;width:min(96vw,1400px);height:min(90vh,1000px);max-height:94vh;box-shadow:var(--shadow);overflow:hidden;
-  position:fixed;top:50%;left:50%;margin:0;transform:translate(-50%,-50%);background:var(--card);color:var(--text)}
+dialog{
+  border:0; padding:0; width:100vw; max-width:none; height:100dvh; max-height:none;
+  border-radius:0; box-shadow:none; overflow:hidden; position:fixed; inset:0; margin:0;
+  background:var(--bg); color:var(--text);
+}
 dialog:not([open]){display:none}
 dialog[open]{display:flex;flex-direction:column}
-dialog::backdrop{background:rgba(3,1,2,.78);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+dialog::backdrop{background:var(--bg)}
+
 .dlg-head{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;padding:26px 32px;display:flex;justify-content:space-between;gap:16px;flex:none}
 .dlg-body{padding:30px 32px;overflow:auto;flex:1;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .x{background:rgba(255,255,255,.18);border:0;color:#fff;width:36px;height:36px;border-radius:9px;cursor:pointer;font-size:18px;height:36px}
@@ -257,13 +261,7 @@ textarea.form-control{
 
 @media(max-width:600px){
 
-  dialog{
-    width:96vw;
-    height:92vh;
-    max-width:none;
-    max-height:94vh;
-    border-radius:16px;
-  }
+  dialog{width:100vw;height:100dvh;max-width:none;max-height:none;border-radius:0;}
 
   .dlg-head{
     padding:18px 18px;
@@ -386,7 +384,7 @@ textarea.form-control{
       <div id="dSub" style="font-size:13px;opacity:.85;margin-top:3px"></div>
       <div id="dBadge" style="margin-top:8px"></div>
     </div>
-    <button class="x" id="closeDetail" aria-label="ปิดรายละเอียด" type="button"><span data-ic="x"></span></button>
+    <button class="x" id="closeDetail" aria-label="กลับหน้าหลัก" title="กลับหน้าหลัก" type="button"><span data-ic="x"></span></button>
   </div>
   <div class="dlg-body" id="dBody"></div>
 </dialog>
@@ -412,7 +410,7 @@ textarea.form-control{
     <button
       class="x"
       onclick="dlg.close()"
-      aria-label="ปิด"
+      aria-label="กลับหน้าหลัก" title="กลับหน้าหลัก"
       type="button">
       <span data-ic="x"></span>
     </button>
@@ -637,12 +635,6 @@ const SHEET_ID = '1cMsTnDg4FzIujdaAwea18wxCD24mfs_c0l4yWPSSAXg';
 const SCRIPT_URL = '';
 const url = s => `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${s}`;
 const $ = id => document.getElementById(id);
-function fitOpenDialogs(){
-  document.querySelectorAll('dialog[open]').forEach(dlg=>{
-    dlg.style.maxHeight = Math.round(window.innerHeight*0.88) + 'px';
-  });
-}
-window.addEventListener('resize', fitOpenDialogs);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const DEFAULT_LEVELS = [{min:4.5,name:'ดีมาก'},{min:3.5,name:'ดี'},{min:2,name:'พอใช้'},{min:0,name:'ปรับปรุง'}];
 const LV_COLOR = ['#D4A017','#F3F1EC','#6b6e73','#E8374B'];
@@ -788,7 +780,6 @@ function openTeacher(t){
   <div style="margin-top:8px;color:var(--muted);font-size:13px">${r.scores.map((s,i)=>`ด้าน ${i+1}: <b style="color:var(--text)">${s??'-'}</b>`).join(' · ')}</div>
   ${r.note?`<div class="note" style="margin-top:12px">${esc(r.note)}</div>`:''}</div>`).join('');
   $('detailDlg').showModal();
-  fitOpenDialogs();
 }
 
 ['q','fSup','fSub','sort'].forEach(id=>$(id).addEventListener('input',render));
@@ -798,7 +789,6 @@ $('btnNew').addEventListener('click',()=>{
   $('formStatus').className='form-status';
   $('formStatus').textContent='';
   $('dlg').showModal();
-  fitOpenDialogs();
 });
 $('closeDetail').addEventListener('click',()=>$('detailDlg').close());
 $('dlg').addEventListener('click',e=>{if(e.target===$('dlg'))$('dlg').close()});
