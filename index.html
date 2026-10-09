@@ -373,6 +373,71 @@ textarea.form-control{
   }
 
 }
+
+/* ==============================
+   UI POLISH
+   ============================== */
+:root{--radius:18px;--line:#22252A;--card:#131518;--shadow:0 1px 0 rgba(255,255,255,.04) inset,0 18px 40px -18px rgba(0,0,0,.7)}
+body{background:radial-gradient(1200px 600px at 85% -10%,rgba(200,16,46,.10),transparent 60%),var(--bg);font-feature-settings:"tnum" 1;text-rendering:optimizeLegibility}
+::selection{background:rgba(232,55,75,.35)}
+.hero{background:linear-gradient(135deg,#0B0C0F 0%,#3A0A14 38%,#A80F28 78%,#D42B41 100%);padding:44px 20px 108px;border-bottom:1px solid rgba(255,255,255,.06)}
+.hero::before{background:repeating-linear-gradient(115deg,rgba(255,255,255,.028) 0 1px,transparent 1px 56px)}
+.hero::after{background:radial-gradient(circle,rgba(212,160,23,.16),transparent 68%)}
+.hero-top{align-items:center;gap:22px}
+.brand-row{gap:18px}
+.brand-logo{width:68px;height:72px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.72;font-weight:500}
+h1{font-size:clamp(24px,3.4vw,34px);font-weight:600;letter-spacing:0;line-height:1.25;margin-top:2px}
+.sub{font-size:13px;opacity:.7;margin-top:4px;letter-spacing:.02em}
+.btn{border-radius:12px;padding:10px 16px;font-weight:500;transition:background .18s,border-color .18s,transform .18s,box-shadow .18s}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible,.t-card:focus-visible,.x:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.btn-ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.3)}
+#btnNew{background:#fff;color:#A80F28;border-color:#fff;font-weight:600;box-shadow:0 8px 22px -10px rgba(0,0,0,.6)}
+#btnNew:hover{background:#FFF1F2}
+main{margin-top:-72px}
+.card,.kpis{box-shadow:var(--shadow)}
+.card{padding:24px;background:linear-gradient(180deg,rgba(255,255,255,.022),rgba(255,255,255,0) 40%),var(--card)}
+.kpis{border-top:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0) 50%),var(--card);position:relative}
+.kpis::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--navy2) 80%,transparent);opacity:.9}
+#kpis .kpi{padding:24px}
+.kpi .icon{width:40px;height:40px;border-radius:12px;background:rgba(232,55,75,.1);border:1px solid rgba(232,55,75,.18);margin-bottom:14px}
+.kpi .lbl{font-size:12.5px;letter-spacing:.02em}
+.kpi .val{font-size:34px;font-weight:600;color:#fff;letter-spacing:-.01em}
+h2{font-size:17px;font-weight:600;letter-spacing:.005em}
+.sec-sub{font-size:12.5px}
+.criteria-score{border-radius:14px;background:rgba(255,255,255,.02);transition:border-color .18s,background .18s}
+.criteria-score:hover{border-color:#30343A;background:rgba(255,255,255,.035)}
+.criteria-score .track{height:6px}
+.track{height:6px;background:#1E2126}
+.badge{font-size:12.5px;font-weight:500;padding:4px 11px;border:1px solid rgba(255,255,255,.06)}
+input,select{border-radius:12px;padding:10px 14px;transition:border-color .18s,box-shadow .18s}
+input:hover,select:hover{border-color:#30343A}
+input:focus,select:focus{outline:0;border-color:var(--navy2);box-shadow:0 0 0 3px rgba(232,55,75,.22)}
+.toolbar{margin:34px 0 18px}
+.teachers{gap:20px}
+.t-card{transition:transform .2s,border-color .2s,box-shadow .2s}
+.t-card:hover{transform:translateY(-2px);border-color:rgba(232,55,75,.45);box-shadow:0 22px 44px -20px rgba(0,0,0,.8)}
+.t-card::before{top:-10px;left:-10px;box-shadow:0 4px 10px rgba(0,0,0,.4)}
+.avatar{clip-path:none;border-radius:14px;width:46px;height:46px;font-weight:600;box-shadow:0 0 0 1px rgba(255,255,255,.08) inset}
+.t-name{font-weight:600}
+.t-score .n{font-size:24px;font-weight:600}
+.mini .col{height:42px;border-radius:8px;background:#1A1D21}
+.mini .col i{border-radius:8px;background:linear-gradient(180deg,#E8374B,#A80F28);opacity:.92}
+.t-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.note{border-left:0;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02);position:relative;padding-left:20px}
+.note::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:3px;background:var(--gold)}
+.dlg-head{background:linear-gradient(120deg,#3A0A14,#A80F28 60%,#D42B41)}
+.x{border-radius:10px;transition:background .18s}
+.x:hover{background:rgba(255,255,255,.3)}
+footer{margin-top:8px;padding:22px 20px 44px;border-top:1px solid var(--line);max-width:1180px;margin-left:auto;margin-right:auto;font-size:12.5px;display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;position:relative;z-index:2}
+footer .dev b{color:var(--text);font-weight:500}
+*{scrollbar-width:thin;scrollbar-color:#2A2E33 transparent}
+@media (max-width:1500px){.mascot-corner{display:none}}
+@media (max-width:700px){.hero{padding:28px 16px 96px}.brand-logo{width:48px;height:52px}.hero-top>div:last-child{width:100%}.hero .btn{flex:1 1 auto;justify-content:center}footer{justify-content:center;text-align:center}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.kpis::before{display:none}.kpi .val{color:#1a1a1a}footer{border-top:1px solid #ddd}}
 </style>
 </head>
 <body>
@@ -451,7 +516,7 @@ textarea.form-control{
   <div class="dlg-body" id="dBody"></div>
 </dialog>
 
-<footer>ข้อมูลอัปเดตอัตโนมัติจาก Google Sheets · พัฒนาโดย ACT Sport Center</footer>
+<footer><span>ข้อมูลอัปเดตอัตโนมัติจาก Google Sheets</span><span class="dev">พัฒนาโดย <b>P.Prayoon-Anutep</b></span></footer>
 
 <dialog id="dlg">
 
