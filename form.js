@@ -116,7 +116,12 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
           </div>
           <div class="frow">
             <div class="fg"><label for="fGrade">ชั้นปี <span class="req">*</span></label><input id="fGrade" list="fGrades" required placeholder="เช่น ม.2"><datalist id="fGrades"></datalist></div>
-            <div class="fg"><label for="fSuper">ชื่อผู้นิเทศ <span class="req">*</span></label><input id="fSuper" list="fSupers" required><datalist id="fSupers"></datalist></div>
+            <div class="fg"><label for="fSuper">ชื่อผู้นิเทศ <span class="req">*</span></label>
+              <div class="fsel-wrap"><select id="fSuper" required><option value="">กำลังโหลดรายชื่อ…</option></select></div>
+            </div>
+          </div>
+          <div class="frow" id="fSuperOtherRow" style="display:none">
+            <div class="fg" style="grid-column:1/-1"><label for="fSuperOther">ระบุชื่อผู้นิเทศ <span class="req">*</span></label><input id="fSuperOther" placeholder="ชื่อ-นามสกุลผู้นิเทศ"></div>
           </div>
           <div class="frow">
             <div class="fg"><label for="fPass">รหัสผู้นิเทศ <span class="req">*</span></label>
@@ -183,21 +188,39 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
     } catch (e) { STAFF = []; }
     return STAFF;
   }
-  function fillTeacherSelect(list, selected) {
-    const sel = document.getElementById('fTeacher');
-    sel.innerHTML = '<option value="">— เลือกชื่อครู —</option>' + list.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join('');
-    if (selected) sel.value = selected;
+  function fillSelect(id, list, placeholder, withOther) {
+    document.getElementById(id).innerHTML = `<option value="">${esc(placeholder)}</option>` + list.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join('') + (withOther ? `<option value="${OTHER_VAL}">อื่นๆ (ระบุ)</option>` : '');
   }
 
+  const fSuperSel = document.getElementById('fSuper'), fSuperOtherRow = document.getElementById('fSuperOtherRow'), fSuperOther = document.getElementById('fSuperOther');
+  const syncSuperOther = focus => {
+    const isOther = fSuperSel.value === OTHER_VAL;
+    fSuperOtherRow.style.display = isOther ? '' : 'none';
+    fSuperOther.required = isOther;
+    if (isOther && focus) fSuperOther.focus();
+  };
+  fSuperSel.onchange = () => syncSuperOther(true);
+
   document.getElementById('btnAdd').onclick = async () => {
-    fillTeacherSelect(['กำลังโหลดรายชื่อ…']);
-    opts('fGrades', GRADES); opts('fSupers', DATA.map(x => x.sup));
+    fillSelect('fTeacher', [], 'กำลังโหลดรายชื่อ…'); fillSelect('fSuper', [], 'กำลังโหลดรายชื่อ…');
+    opts('fGrades', GRADES);
     fSportType.value = ''; fSportOtherRow.style.display = 'none'; fSportOther.value = ''; fSportOther.required = false;
-    try { const s = JSON.parse(localStorage.getItem('supForm') || 'null'); if (s) { fSuper.value = s.sup || ''; fPass.value = s.pass || ''; fRemember.checked = true; } } catch (e) {}
+    fSuperOther.value = ''; syncSuperOther();
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem('supForm') || 'null'); } catch (e) {}
+    if (saved) { fPass.value = saved.pass || ''; fRemember.checked = true; }
     msg(SCRIPT_URL ? '' : 'ยังไม่ได้เชื่อมต่อกับชีต — ต้องตั้งค่า SCRIPT_URL ใน form.js ก่อนจึงจะบันทึกได้', 'warn');
     d.showModal();
     const names = await loadStaff();
-    fillTeacherSelect(names.length ? names : DATA.map(x => x.teacher).filter((v, i, a) => a.indexOf(v) === i));
+    const uniq = a => [...new Set(a.filter(Boolean))].sort((x, y) => x.localeCompare(y, 'th'));
+    fillSelect('fTeacher', names.length ? names : uniq(DATA.map(x => x.teacher)), '— เลือกชื่อครู —');
+    const sups = uniq([...names, ...DATA.map(x => x.sup)]);
+    fillSelect('fSuper', sups, '— เลือกชื่อผู้นิเทศ —', true);
+    if (saved && saved.sup) {
+      if (sups.includes(saved.sup)) fSuperSel.value = saved.sup;
+      else { fSuperSel.value = OTHER_VAL; fSuperOther.value = saved.sup; }
+    }
+    syncSuperOther();
   };
   const close = () => d.close();
   document.getElementById('fClose').onclick = close; document.getElementById('fCancel').onclick = close;
@@ -233,10 +256,12 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
     if (!SCRIPT_URL) return msg('ยังไม่ได้ตั้งค่า SCRIPT_URL', 'err');
     const sport = fSportType.value === OTHER_VAL ? fSportOther.value.trim() : fSportType.value;
     if (!sport) return msg('กรุณาเลือกหรือระบุชนิดกีฬา', 'err');
+    const supervisor = fSuperSel.value === OTHER_VAL ? fSuperOther.value.trim() : fSuperSel.value;
+    if (!supervisor) return msg('กรุณาเลือกหรือระบุชื่อผู้นิเทศ', 'err');
     const subject = `พลศึกษา (${sport}) ${fGrade.value.trim()}`.trim();
     const btn = document.getElementById('fSubmit'); btn.disabled = true; btn.textContent = 'กำลังบันทึก…'; msg('');
     const payload = {
-      passcode: fPass.value, teacher: fTeacher.value, subject, supervisor: fSuper.value, note: fNote.value,
+      passcode: fPass.value, teacher: fTeacher.value, subject, supervisor, note: fNote.value,
       scores: CRITERIA.map((_, i) => +form.querySelector(`input[name=s${i}]:checked`).value)
     };
     const submittedAt = Date.now();
@@ -270,8 +295,8 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
     else if (!ok) errMsg = 'บันทึกไม่สำเร็จ หรือระบบตรวจสอบไม่พบข้อมูลในชีต กรุณาลองใหม่อีกครั้ง';
     try {
       if (!ok) throw new Error(errMsg);
-      try { fRemember.checked ? localStorage.setItem('supForm', JSON.stringify({ sup: fSuper.value, pass: fPass.value })) : localStorage.removeItem('supForm'); } catch (e) {}
-      form.reset(); fSportOtherRow.style.display = 'none'; d.close(); toast('บันทึกการนิเทศเรียบร้อย'); load();
+      try { fRemember.checked ? localStorage.setItem('supForm', JSON.stringify({ sup: supervisor, pass: fPass.value })) : localStorage.removeItem('supForm'); } catch (e) {}
+      form.reset(); fSportOtherRow.style.display = 'none'; syncSuperOther(); d.close(); toast('บันทึกการนิเทศเรียบร้อย'); load();
     } catch (e) {
       msg(e.message, 'err');
     } finally { btn.disabled = false; btn.textContent = 'บันทึกข้อมูล'; }

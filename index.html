@@ -42,7 +42,7 @@ main{max-width:1180px;margin:-64px auto 60px;padding:0 20px;position:relative;z-
 .kpi .icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--chip);color:var(--navy2);margin-bottom:12px}
 .kpi .icon .i{width:20px;height:20px}
 .i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none;display:inline-block;vertical-align:middle}
-.btn{display:inline-flex;align-items:center;gap:7px}
+.btn{display:inline-flex;align-items:center;gap:7px;text-decoration:none}
 .t-foot .more{display:inline-flex;align-items:center;gap:4px;color:var(--navy2);font-weight:600}
 .t-foot .more .i{width:15px;height:15px;transition:transform .15s}
 .t-card:hover .t-foot .more .i{transform:translateX(3px)}
@@ -120,6 +120,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
       <div class="sub" id="updated">กำลังโหลดข้อมูล…</div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn btn-ghost" id="btnHome" href="https://act-sport-center2026.vercel.app"><span data-ic="home"></span>หน้าหลัก</a>
       <button class="btn btn-ghost" id="btnRefresh"><span data-ic="refresh"></span>รีเฟรช</button>
       <button class="btn btn-ghost" onclick="window.print()"><span data-ic="printer"></span>พิมพ์ / PDF</button>
     </div>
@@ -149,7 +150,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
 
   <div class="toolbar">
     <h2>รายบุคคล</h2>
-    <input id="q" type="search" placeholder="ค้นหาชื่อครู…">
+    <select id="q" aria-label="เลือกครู"><option value="">ครูทั้งหมด</option></select>
     <select id="fSup"><option value="">ผู้นิเทศทั้งหมด</option></select>
     <select id="fSub"><option value="">ทุกวิชา / ชั้นปี</option></select>
     <select id="sort">
@@ -192,6 +193,7 @@ const ICONS = {
   refresh:'<path d="M21 12a9 9 0 1 1-2.64-6.36L21 8"/><path d="M21 3v5h-5"/>',
   printer:'<path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8" rx="1"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
+  home:'<path d="m3 10.5 9-7.5 9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/>',
   x:'<path d="M18 6 6 18M6 6l12 12"/>',
   inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',
   check:'<path d="M20 6 9 17l-5-5"/>',
@@ -264,12 +266,12 @@ function demoData(){
 
 function fillFilters(){
   const opt=(id,vals,label)=>{const el=$(id),cur=el.value;el.innerHTML=`<option value="">${label}</option>`+[...new Set(vals)].filter(Boolean).sort().map(v=>`<option>${esc(v)}</option>`).join('');el.value=cur};
-  opt('fSup',DATA.map(d=>d.sup),'ผู้นิเทศทั้งหมด'); opt('fSub',DATA.map(d=>d.subject),'ทุกวิชา / ชั้นปี');
+  opt('q',DATA.map(d=>d.teacher),'ครูทั้งหมด'); opt('fSup',DATA.map(d=>d.sup),'ผู้นิเทศทั้งหมด'); opt('fSub',DATA.map(d=>d.subject),'ทุกวิชา / ชั้นปี');
 }
 
 function filtered(){
-  const q=$('q').value.trim().toLowerCase(), s=$('fSup').value, b=$('fSub').value;
-  return DATA.filter(d=>(!q||d.teacher.toLowerCase().includes(q))&&(!s||d.sup===s)&&(!b||d.subject===b));
+  const q=$('q').value, s=$('fSup').value, b=$('fSub').value;
+  return DATA.filter(d=>(!q||d.teacher===q)&&(!s||d.sup===s)&&(!b||d.subject===b));
 }
 
 function groupTeachers(rows){
