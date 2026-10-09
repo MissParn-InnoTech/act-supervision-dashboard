@@ -10,25 +10,27 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
     'การจัดบรรยากาศและสิ่งแวดล้อมการเรียนรู้'
   ];
   const SCALE = ['ปรับปรุง', 'พอใช้', 'ปานกลาง', 'ดี', 'ดีมาก'];
-  const SPORTS = ['ฟุตบอล', 'ฟุตซอล', 'บาสเกตบอล', 'วอลเลย์บอล', 'แบดมินตัน', 'เทเบิลเทนนิส', 'ว่ายน้ำ', 'กรีฑา', 'เปตอง', 'ตะกร้อ', 'รักบี้ฟุตบอล', 'ยิมนาสติก', 'เทนนิส', 'มวยไทย', 'อื่นๆ'];
+  const SPORTS = ['ฟุตบอล', 'ฟุตซอล', 'วอลเลย์บอล', 'บาสเกตบอล', 'แบดมินตัน', 'เทเบิลเทนนิส', 'เทนนิส', 'ว่ายน้ำ', 'กรีฑา', 'เปตอง', 'รักบี้', 'ยิมนาสติก', 'กายบริหาร/นันทนาการ'];
+  const GRADES = ['ป.4', 'ป.5', 'ป.6', 'ม.1', 'ม.2', 'ม.3', 'ม.4', 'ม.5', 'ม.6'];
+  const OTHER_VAL = '__other__';
 
   const css = `
-  .f-btn{background:#fff;color:var(--navy);clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);padding-left:22px;padding-right:22px}.f-btn:hover{background:#ffe0e2}
+  .f-btn{background:#fff;color:var(--navy)}.f-btn:hover{background:#ffe0e2}
   #fdlg{max-width:640px}
   #fdlg .dlg-head{padding:22px 26px}
   #fdlg .dlg-head .eyebrow{opacity:.82}
   #fdlg form{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
-  .fbody{padding:22px 26px 8px;overflow:auto;flex:1;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+  .fbody{padding:22px 26px 8px;overflow:auto;flex:1;min-height:0}
   .fsec{margin-bottom:22px}
   .fsec:last-child{margin-bottom:6px}
   .fsec-h{display:flex;align-items:center;gap:9px;margin-bottom:14px}
-  .fsec-h .n{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,var(--navy2),var(--navy));color:#fff;font-family:'Chakra Petch',sans-serif;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+  .fsec-h .n{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,var(--navy2),var(--navy));color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
   .fsec-h .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--text);text-transform:uppercase;opacity:.9}
   .fsec-h .hint{margin-left:auto;font-size:12px;color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0}
   .fg{margin-bottom:14px}.fg:last-child{margin-bottom:0}
   .fg label{display:block;font-weight:600;font-size:13px;margin-bottom:7px;color:var(--muted)}
   .fg .req{color:var(--navy2)}
-  .fg input,.fg textarea,.fg select{width:100%;min-width:0;font-family:inherit;font-size:15px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--input);color:var(--text);transition:.15s;appearance:none}
+  .fg input,.fg textarea,.fg select{width:100%;min-width:0;font-family:inherit;font-size:16px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--input);color:var(--text);transition:.15s;appearance:none}
   .fg input:hover,.fg textarea:hover,.fg select:hover{border-color:#5a2a2e}
   .fg input:focus,.fg textarea:focus,.fg select:focus{outline:0;border-color:var(--navy2);box-shadow:0 0 0 3px rgba(255,71,87,.18)}
   .fg input::placeholder,.fg textarea::placeholder{color:var(--muted)}
@@ -38,7 +40,7 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
   .fsel-wrap::after{content:"";position:absolute;right:14px;top:50%;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-65%) rotate(45deg);pointer-events:none}
   .fpass-wrap{position:relative}
   .fpass-wrap input{padding-right:44px}
-  .fpass-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:32px;height:32px;border:0;background:transparent;color:var(--muted);cursor:pointer;border-radius:8px;display:grid;place-items:center}
+  .fpass-eye{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:40px;height:40px;border:0;background:transparent;color:var(--muted);cursor:pointer;border-radius:8px;display:grid;place-items:center;touch-action:manipulation}
   .fpass-eye:hover{background:var(--chip);color:var(--text)}
   .fpass-eye .i{width:17px;height:17px}
   .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -46,13 +48,13 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
   .fq:last-child{margin-bottom:0}
   .fq:focus-within{border-color:rgba(255,71,87,.4)}
   .fq-top{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
-  .fq-num{font-family:'Chakra Petch',sans-serif;font-size:12px;font-weight:700;color:var(--navy2);flex:none}
+  .fq-num{font-size:12px;font-weight:700;color:var(--navy2);flex:none}
   .fq-t{font-weight:600;font-size:13.5px;color:var(--text);line-height:1.35}
   .seg{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
   .seg input{position:absolute;opacity:0;pointer-events:none}
-  .seg label{margin:0;text-align:center;padding:7px 2px;border-radius:9px;background:var(--chip);cursor:pointer;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:14px;color:var(--muted);transition:.12s;line-height:1.15;border:1px solid transparent}
+  .seg label{margin:0;text-align:center;padding:10px 2px;min-height:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:9px;background:var(--chip);cursor:pointer;font-weight:700;font-size:14px;color:var(--muted);transition:.12s;line-height:1.15;border:1px solid transparent;touch-action:manipulation}
   .seg label:hover{border-color:rgba(255,71,87,.35)}
-  .seg label small{display:block;font-family:'Kanit',sans-serif;font-size:9.5px;font-weight:500;margin-top:2px;opacity:.85}
+  .seg label small{display:block;font-size:9.5px;font-weight:500;margin-top:2px;opacity:.85}
   .seg input:checked+label{background:linear-gradient(120deg,var(--navy2),var(--navy));color:#fff;border-color:transparent;box-shadow:0 3px 10px rgba(255,71,87,.35)}
   .seg input:focus-visible+label{outline:2px solid var(--navy2);outline-offset:1px}
   .fmsg{display:flex;align-items:flex-start;gap:9px;padding:11px 13px;border-radius:12px;font-size:13.5px;margin:0 26px 14px;line-height:1.45}
@@ -101,21 +103,26 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
             <div class="fg"><label for="fTeacher">ชื่อครูพลศึกษาผู้รับการนิเทศ <span class="req">*</span></label>
               <div class="fsel-wrap"><select id="fTeacher" required><option value="">กำลังโหลดรายชื่อ…</option></select></div>
             </div>
-            <div class="fg"><label for="fSport">ชนิดกีฬา <span class="req">*</span></label>
-              <div class="fsel-wrap"><select id="fSport" required>
+            <div class="fg"><label for="fSportType">ชนิดกีฬา <span class="req">*</span></label>
+              <div class="fsel-wrap"><select id="fSportType" required>
                 <option value="">— เลือกชนิดกีฬา —</option>
                 ${SPORTS.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('')}
+                <option value="${OTHER_VAL}">อื่นๆ (ระบุ)</option>
               </select></div>
             </div>
           </div>
-          <div class="fg" id="fSportOtherWrap" style="display:none"><label for="fSportOther">ระบุชนิดกีฬา <span class="req">*</span></label><input id="fSportOther" placeholder="เช่น เซปักตะกร้อ"></div>
+          <div class="frow" id="fSportOtherRow" style="display:none">
+            <div class="fg" style="grid-column:1/-1"><label for="fSportOther">ระบุชนิดกีฬา <span class="req">*</span></label><input id="fSportOther" placeholder="เช่น เซปักตะกร้อ"></div>
+          </div>
           <div class="frow">
-            <div class="fg"><label for="fClassLevel">ชั้นปี <span class="req">*</span></label><input id="fClassLevel" list="fClassLevels" required placeholder="เช่น ม.2"><datalist id="fClassLevels"></datalist></div>
+            <div class="fg"><label for="fGrade">ชั้นปี <span class="req">*</span></label><input id="fGrade" list="fGrades" required placeholder="เช่น ม.2"><datalist id="fGrades"></datalist></div>
             <div class="fg"><label for="fSuper">ชื่อผู้นิเทศ <span class="req">*</span></label><input id="fSuper" list="fSupers" required><datalist id="fSupers"></datalist></div>
           </div>
-          <div class="fg"><label for="fPass">รหัสผู้นิเทศ <span class="req">*</span></label>
-            <div class="fpass-wrap"><input id="fPass" type="password" required autocomplete="off">
-              <button type="button" class="fpass-eye" id="fPassToggle" aria-label="แสดงรหัสผ่าน">${ic('eye')}</button>
+          <div class="frow">
+            <div class="fg"><label for="fPass">รหัสผู้นิเทศ <span class="req">*</span></label>
+              <div class="fpass-wrap"><input id="fPass" type="password" required autocomplete="off">
+                <button type="button" class="fpass-eye" id="fPassToggle" aria-label="แสดงรหัสผ่าน">${ic('eye')}</button>
+              </div>
             </div>
           </div>
         </div>
@@ -148,12 +155,22 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
     inp.type = inp.type === 'password' ? 'text' : 'password';
   };
 
-  const sportOtherWrap = document.getElementById('fSportOtherWrap'), sportOther = document.getElementById('fSportOther');
-  document.getElementById('fSport').onchange = function () {
-    const isOther = this.value === 'อื่นๆ';
-    sportOtherWrap.style.display = isOther ? '' : 'none';
-    sportOther.required = isOther;
-    if (!isOther) sportOther.value = '';
+  // --- cross-device dialog fallback -----------------------------------
+  // Older/less-common browsers (some in-app webviews, older Android/iOS
+  // builds) don't implement <dialog>.showModal(), which would otherwise
+  // leave the form permanently invisible and unfillable on those devices.
+  // Patch in a minimal manual implementation when the native one is missing.
+  if (typeof d.showModal !== 'function') {
+    d.showModal = function () { this.setAttribute('open', ''); document.body.style.overflow = 'hidden'; };
+    d.close = function () { this.removeAttribute('open'); document.body.style.overflow = ''; };
+  }
+
+  const fSportType = document.getElementById('fSportType'), fSportOtherRow = document.getElementById('fSportOtherRow'), fSportOther = document.getElementById('fSportOther');
+  fSportType.onchange = () => {
+    const isOther = fSportType.value === OTHER_VAL;
+    fSportOtherRow.style.display = isOther ? '' : 'none';
+    fSportOther.required = isOther;
+    if (isOther) fSportOther.focus();
   };
 
   let STAFF = null;
@@ -174,25 +191,27 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
 
   document.getElementById('btnAdd').onclick = async () => {
     fillTeacherSelect(['กำลังโหลดรายชื่อ…']);
-    opts('fClassLevels', DATA.map(x => (x.subject.match(/\)\s*(.+)$/) || [])[1]).filter(Boolean));
-    opts('fSupers', DATA.map(x => x.sup));
-    sportOtherWrap.style.display = 'none'; sportOther.required = false; sportOther.value = '';
+    opts('fGrades', GRADES); opts('fSupers', DATA.map(x => x.sup));
+    fSportType.value = ''; fSportOtherRow.style.display = 'none'; fSportOther.value = ''; fSportOther.required = false;
     try { const s = JSON.parse(localStorage.getItem('supForm') || 'null'); if (s) { fSuper.value = s.sup || ''; fPass.value = s.pass || ''; fRemember.checked = true; } } catch (e) {}
     msg(SCRIPT_URL ? '' : 'ยังไม่ได้เชื่อมต่อกับชีต — ต้องตั้งค่า SCRIPT_URL ใน form.js ก่อนจึงจะบันทึกได้', 'warn');
     d.showModal();
-    if (typeof fitOpenDialogs === 'function') fitOpenDialogs();
     const names = await loadStaff();
     fillTeacherSelect(names.length ? names : DATA.map(x => x.teacher).filter((v, i, a) => a.indexOf(v) === i));
   };
   const close = () => d.close();
   document.getElementById('fClose').onclick = close; document.getElementById('fCancel').onclick = close;
 
-  function parseSheetTimestamp(s) {
-    // Expected format from Apps Script's `new Date()` cell: M/D/YYYY H:mm:ss
-    const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2}):(\d{2})$/.exec((s || '').trim());
-    if (!m) return null;
-    const [, mo, da, yr, h, mi, se] = m.slice(1).map(Number);
-    return new Date(yr, mo - 1, da, h, mi, se).getTime();
+  function parseSheetTimestamps(s) {
+    // Timestamp cell written by Apps Script's `new Date()`. The sheet's locale decides whether it
+    // reads M/D/YYYY or D/M/YYYY (sometimes with a comma), so return both readings as candidates.
+    const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4}),?\s+(\d{1,2}):(\d{2})(?::(\d{2}))?$/.exec((s || '').trim());
+    if (!m) return [];
+    const [a, b, yr, h, mi, se] = m.slice(1).map(x => Number(x || 0));
+    const out = [];
+    if (a <= 12) out.push(new Date(yr, a - 1, b, h, mi, se).getTime());
+    if (b <= 12) out.push(new Date(yr, b - 1, a, h, mi, se).getTime());
+    return out;
   }
 
   // Google Apps Script's post-POST redirect ("echo") response is occasionally flaky right after a
@@ -204,8 +223,7 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
       const rows = parseCSV(t).slice(1);
       return rows.some(r => {
         if ((r[1] || '').trim() !== payload.teacher || (r[3] || '').trim() !== payload.supervisor) return false;
-        const ts = parseSheetTimestamp(r[0]);
-        return ts !== null && Math.abs(ts - submittedAt) < 60000;
+        return parseSheetTimestamps(r[0]).some(ts => Math.abs(ts - submittedAt) < 60000);
       });
     } catch (e) { return false; }
   }
@@ -213,9 +231,10 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
   form.onsubmit = async ev => {
     ev.preventDefault();
     if (!SCRIPT_URL) return msg('ยังไม่ได้ตั้งค่า SCRIPT_URL', 'err');
+    const sport = fSportType.value === OTHER_VAL ? fSportOther.value.trim() : fSportType.value;
+    if (!sport) return msg('กรุณาเลือกหรือระบุชนิดกีฬา', 'err');
+    const subject = `พลศึกษา (${sport}) ${fGrade.value.trim()}`.trim();
     const btn = document.getElementById('fSubmit'); btn.disabled = true; btn.textContent = 'กำลังบันทึก…'; msg('');
-    const sport = fSport.value === 'อื่นๆ' ? fSportOther.value.trim() : fSport.value;
-    const subject = `พลศึกษา (${sport}) ${fClassLevel.value.trim()}`.trim();
     const payload = {
       passcode: fPass.value, teacher: fTeacher.value, subject, supervisor: fSuper.value, note: fNote.value,
       scores: CRITERIA.map((_, i) => +form.querySelector(`input[name=s${i}]:checked`).value)
@@ -252,7 +271,7 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc
     try {
       if (!ok) throw new Error(errMsg);
       try { fRemember.checked ? localStorage.setItem('supForm', JSON.stringify({ sup: fSuper.value, pass: fPass.value })) : localStorage.removeItem('supForm'); } catch (e) {}
-      form.reset(); d.close(); toast('บันทึกการนิเทศเรียบร้อย'); load();
+      form.reset(); fSportOtherRow.style.display = 'none'; d.close(); toast('บันทึกการนิเทศเรียบร้อย'); load();
     } catch (e) {
       msg(e.message, 'err');
     } finally { btn.disabled = false; btn.textContent = 'บันทึกข้อมูล'; }
