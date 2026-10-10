@@ -438,6 +438,22 @@ footer .dev b{color:var(--text);font-weight:500}
 @media (max-width:700px){.hero{padding:28px 16px 96px}.brand-logo{width:48px;height:52px}.hero-top>div:last-child{width:100%}.hero .btn{flex:1 1 auto;justify-content:center}footer{justify-content:center;text-align:center}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media print{.kpis::before{display:none}.kpi .val{color:#1a1a1a}footer{border-top:1px solid #ddd}}
+/* แถบคู่มือการใช้งาน — ย่อ/ขยายได้ อยู่ใต้หัวข้อของหน้าและของแบบฟอร์ม */
+.guide{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--navy);border-radius:12px;margin:0 0 18px;color:var(--text)}
+.guide summary{display:flex;align-items:center;gap:8px;padding:11px 16px;cursor:pointer;list-style:none;font-size:14px;font-weight:500}
+.guide summary::-webkit-details-marker{display:none}
+.guide summary:focus-visible{outline:2px solid var(--navy2);outline-offset:2px;border-radius:10px}
+.guide .g-ic{color:var(--navy2);flex:none}
+.guide .g-hint{color:var(--muted);font-weight:400;font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.guide .g-ch{margin-left:auto;flex:none;color:var(--muted);transition:transform .15s}
+.guide[open] .g-ch{transform:rotate(180deg)}
+.guide[open] .g-hint{display:none}
+.guide .g-body{padding:0 16px 16px 40px;font-size:14px;line-height:1.75;max-width:78ch}
+.guide .g-body p{color:var(--muted);margin:0}
+.guide .g-label{font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--navy2);margin:10px 0 2px}
+.guide .g-body ol,.guide .g-body ul{margin:0;padding-left:20px}
+@media (max-width:600px){.guide .g-hint{display:none}.guide .g-body{padding-left:16px}}
+@media print{.guide{display:none}}
 </style>
 </head>
 <body>
@@ -464,6 +480,26 @@ footer .dev b{color:var(--text);font-weight:500}
 </header>
 
 <main>
+  <details class="guide">
+    <summary><svg class="g-ic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>คู่มือการใช้งานหน้านี้</span><span class="g-hint">· แดชบอร์ดสรุปผลการนิเทศการสอนของครูศูนย์กีฬา</span><svg class="g-ch" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+    <div class="g-body">
+      <p>แดชบอร์ดสรุปผลการนิเทศการสอนของครูศูนย์กีฬา ข้อมูลทุกส่วนเปลี่ยนตามตัวกรองที่เลือก</p>
+      <div class="g-label">ขั้นตอน</div>
+      <ol>
+        <li>อ่านการ์ดสรุปด้านบน: จำนวนการนิเทศ จำนวนครูที่ได้รับการนิเทศ คะแนนเฉลี่ยรวม และระดับผลรวม</li>
+        <li>ดูคะแนนเฉลี่ยของทั้ง 5 ด้าน และสัดส่วนระดับผลการประเมิน</li>
+        <li>ในหัวข้อ “รายบุคคล” เลือกครู ผู้นิเทศ หรือวิชา/ชั้นปี และเลือกวิธีเรียงลำดับ</li>
+        <li>กด “ดูรายละเอียด” ที่การ์ดของครูเพื่อดูคะแนนรายด้านและประวัติการนิเทศทุกครั้ง</li>
+        <li>กด “บันทึกการนิเทศ” ด้านบนเพื่อบันทึกการนิเทศครั้งใหม่</li>
+      </ol>
+      <div class="g-label">ข้อควรรู้</div>
+      <ul>
+        <li>เกณฑ์คะแนนเฉลี่ย: ดีมาก 4.50–5.00 · ดี 3.50–4.49 · พอใช้ 2.00–3.49 · ปรับปรุง 0.00–1.99</li>
+        <li>กด “รีเฟรช” เพื่อดึงข้อมูลล่าสุด เวลาอัปเดตแสดงอยู่ใต้ชื่อระบบ</li>
+        <li>“พิมพ์ / PDF” จะพิมพ์ตามตัวกรองที่เลือกอยู่</li>
+      </ul>
+    </div>
+  </details>
   <section class="kpis" id="kpis"></section>
 
   <section class="grid2">
@@ -550,6 +586,25 @@ footer .dev b{color:var(--text);font-weight:500}
 
   <div class="dlg-body">
 
+    <details class="guide">
+      <summary><svg class="g-ic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>คู่มือการกรอกแบบฟอร์มนี้</span><span class="g-hint">· กรอกช่องที่มี * ให้ครบก่อนบันทึก</span><svg class="g-ch" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="g-body">
+        <p>ใช้บันทึกผลการนิเทศการสอน 1 ครั้งต่อ 1 แบบฟอร์ม</p>
+        <div class="g-label">ขั้นตอน</div>
+        <ol>
+          <li>ระบุครูผู้รับการนิเทศ ระดับชั้น และชนิดกีฬา</li>
+          <li>ระบุผู้นิเทศ และกรอกรหัสผู้นิเทศ</li>
+          <li>ให้คะแนน 1–5 ให้ครบทั้ง 5 ด้าน (5 = ดีมาก, 1 = ต้องปรับปรุง)</li>
+          <li>เขียนข้อเสนอแนะ ซึ่งจะแสดงในหัวข้อ “ข้อเสนอแนะล่าสุด” ของแดชบอร์ด</li>
+          <li>กด “บันทึกข้อมูล” หรือ “ยกเลิก” เพื่อปิดโดยไม่บันทึก</li>
+        </ol>
+        <div class="g-label">ข้อควรรู้</div>
+        <ul>
+          <li>ช่องที่มีเครื่องหมาย * ต้องกรอกทุกช่อง</li>
+          <li>ตรวจชื่อครูและคะแนนก่อนบันทึก เพราะข้อมูลจะถูกนำไปคิดคะแนนเฉลี่ยทันที</li>
+        </ul>
+      </div>
+    </details>
     <form id="supervisionForm">
 
       <div class="form-grid">
