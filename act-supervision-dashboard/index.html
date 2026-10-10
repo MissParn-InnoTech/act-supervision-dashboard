@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ระบบนิเทศการสอนวิชาพลศึกษา | ACT Sport Center</title>
+<meta name="description" content="แดชบอร์ดสรุปผลการนิเทศการสอนวิชาพลศึกษา ศูนย์กีฬา ACT Sport Center">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#C8102E; --navy2:#E8374B; --bg:#0A0B0D; --card:#15171A; --text:#F3F1EC;
+  --muted:#9A9EA5; --line:#24272B; --radius:14px; --chip:#1B1D21; --input:#121316;
+  --surface2:#1D2024; --gold:#D4A017; --silver:#B6BEC6; --bronze:#B5712B;
+  --l1:#F0C94D; --l1b:#2E2408; --l2:#F3F1EC; --l2b:#202327; --l3:#9FA3A9; --l3b:#17191C; --l4:#FF6B7A; --l4b:#38141A;
+  --shadow:0 24px 60px rgba(0,0,0,.55);
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Kanit',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
+.hero{background:linear-gradient(145deg,#0A0B0D 0%,var(--navy) 62%,var(--navy2) 100%);color:#fff;padding:36px 20px 96px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 2px,transparent 2px 46px);pointer-events:none}
+.hero::after{content:"";position:absolute;right:-70px;top:-150px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.22),transparent 70%);pointer-events:none}
+.wrap{max-width:1180px;margin:0 auto;position:relative;z-index:1}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.brand-row{display:flex;align-items:center;gap:16px}
+.brand-logo{width:56px;height:60px;flex:none;object-fit:contain}
+.mascot-corner{position:fixed;left:-6px;bottom:0;width:150px;height:auto;z-index:0;pointer-events:none;filter:drop-shadow(0 12px 20px rgba(0,0,0,.45))}
+.eyebrow{font-size:13px;letter-spacing:.06em;opacity:.85;font-weight:500}
+h1{font-size:clamp(26px,4vw,38px);font-weight:700;margin-top:4px;letter-spacing:-.01em}
+.sub{opacity:.85;margin-top:6px;font-size:15px;font-family:'Chakra Petch',sans-serif}
+.btn{border:0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;border-radius:10px;padding:10px 16px;transition:.15s}
+.btn-ghost{background:rgba(255,255,255,.15);color:#fff;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.btn-ghost:hover{background:rgba(255,255,255,.28)}
+.btn-primary{background:var(--navy2);color:#fff;clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);padding-left:22px;padding-right:22px}
+.btn-primary:hover{background:var(--navy)}
+main{max-width:1180px;margin:-64px auto 60px;padding:0 20px;position:relative;z-index:2}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:var(--radius);overflow:hidden}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+#kpis .kpi{background:transparent;border-radius:0;border-top:0;border-left:0;border-bottom:0;border-right:1px solid var(--line)}
+#kpis .kpi:last-child{border-right:0}
+.kpi .lbl{color:var(--muted);font-size:13px;font-weight:500}
+.kpi .val{font-family:'Chakra Petch',sans-serif;font-size:36px;font-weight:700;color:var(--navy2);margin-top:4px;line-height:1.2}
+.kpi .unit{font-family:'Kanit',sans-serif;font-size:14px;color:var(--muted);font-weight:500;margin-left:4px}
+.kpi .icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--chip);color:var(--navy2);margin-bottom:12px}
+.kpi .icon .i{width:19px;height:19px}
+.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none;display:inline-block;vertical-align:middle}
+.btn{display:inline-flex;align-items:center;gap:7px;text-decoration:none}
+.t-foot .more{display:inline-flex;align-items:center;gap:4px;color:var(--navy2);font-weight:600}
+.t-foot .more .i{width:15px;height:15px;transition:transform .15s}
+.t-card:hover .t-foot .more .i{transform:translateX(3px)}
+.empty .em{width:64px;height:64px;margin:0 auto;border-radius:14px;background:var(--chip);color:var(--navy2);display:grid;place-items:center}
+.empty .em .i{width:30px;height:30px;stroke-width:1.5}
+.x{display:grid;place-items:center}
+.badge{display:inline-block;padding:4px 12px;border-radius:999px;font-weight:600;font-size:14px;font-family:'Kanit',sans-serif}
+.lv1{background:var(--l1b);color:var(--l1)} .lv2{background:var(--l2b);color:var(--l2)}
+.lv3{background:var(--l3b);color:var(--l3)} .lv4{background:var(--l4b);color:var(--l4)} .lv0{background:var(--chip);color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:16px}
+h2{font-size:18px;font-weight:700;color:var(--text)}
+.sec-sub{color:var(--muted);font-size:13px;margin-top:2px}
+.bars{margin-top:20px;display:grid;gap:20px}
+/* Full-length supervision criteria labels */
+.criteria-score{padding:13px 14px 14px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(135deg,rgba(255,255,255,.035),rgba(255,255,255,.01));}
+.criteria-score .top{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:start;gap:10px;font-size:14px;line-height:1.55;margin-bottom:10px}
+.criteria-score .num{width:28px;height:28px;display:grid;place-items:center;border-radius:8px;background:rgba(232,55,75,.14);color:var(--navy2);font-family:'Chakra Petch',sans-serif;font-weight:700}
+.criteria-score .label{min-width:0;color:var(--text);font-weight:500;overflow-wrap:anywhere}
+.criteria-score .score{font-family:'Chakra Petch',sans-serif;font-size:18px;font-weight:700;white-space:nowrap;color:var(--gold)}
+.criteria-score .track{height:9px;margin-left:38px}
+.criteria-score .track .fill{background:linear-gradient(90deg,var(--navy2),var(--gold))}
+@media(max-width:600px){.criteria-score{padding:11px}.criteria-score .top{grid-template-columns:28px minmax(0,1fr) auto;gap:8px;font-size:13px}.criteria-score .score{font-size:16px}.criteria-score .track{margin-left:36px}}
+.bar-row .top{display:flex;justify-content:space-between;gap:12px;font-size:14px;margin-bottom:6px}
+.bar-row .top b{color:var(--text);font-variant-numeric:tabular-nums;font-family:'Chakra Petch',sans-serif}
+.track{height:10px;background:var(--chip);border-radius:999px;overflow:hidden}
+.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--navy),var(--gold));width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.donut-wrap{display:flex;align-items:center;gap:22px;margin-top:18px;flex-wrap:wrap}
+.donut{width:150px;height:150px;border-radius:50%;position:relative;flex:none}
+.donut::after{content:attr(data-center);position:absolute;inset:22px;background:var(--card);border-radius:50%;display:grid;place-items:center;font-family:'Chakra Petch',sans-serif;font-size:24px;font-weight:700;color:var(--text);text-align:center;line-height:1.1;white-space:pre-line}
+.legend{display:grid;gap:8px;font-size:14px;flex:1;min-width:140px}
+.legend div{display:flex;align-items:center;gap:8px}
+.legend i{width:12px;height:12px;border-radius:4px;display:inline-block}
+.legend span{margin-left:auto;font-weight:600;font-family:'Chakra Petch',sans-serif}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:26px 0 14px}
+.toolbar h2{margin-right:auto}
+input,select{font-family:inherit;font-size:14px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--input);color:var(--text);min-width:150px}
+input::placeholder{color:var(--muted)}
+input:focus,select:focus{outline:2px solid var(--navy2);border-color:transparent}
+#teachers{counter-reset:rank}
+.teachers{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px 16px}
+.t-card{cursor:pointer;transition:.18s;border:1px solid var(--line);position:relative;counter-increment:rank}
+.t-card:hover{transform:translateY(-3px);border-color:rgba(232,55,75,.5);box-shadow:0 16px 36px rgba(0,0,0,.5)}
+.t-card::before{content:counter(rank);position:absolute;top:-9px;left:-9px;width:28px;height:28px;border-radius:50%;background:var(--surface2);border:1px solid var(--line);display:grid;place-items:center;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:12px;color:var(--muted)}
+.t-card:nth-child(1)::before{background:var(--gold);color:#271d05;border-color:transparent}
+.t-card:nth-child(2)::before{background:var(--silver);color:#1a1c1e;border-color:transparent}
+.t-card:nth-child(3)::before{background:var(--bronze);color:#2a1505;border-color:transparent}
+.t-head{display:flex;gap:14px;align-items:center}
+.avatar{width:48px;height:48px;clip-path:polygon(50% 0%,95% 25%,95% 75%,50% 100%,5% 75%,5% 25%);display:grid;place-items:center;color:#fff;font-weight:700;font-size:17px;font-family:'Chakra Petch',sans-serif;flex:none}
+.t-name{font-weight:700;font-size:16px;line-height:1.3}
+.t-meta{color:var(--muted);font-size:13px}
+.t-score{margin-left:auto;text-align:right}
+.t-score .n{font-family:'Chakra Petch',sans-serif;font-size:25px;font-weight:700;color:var(--text);line-height:1}
+.mini{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:16px}
+.mini div{text-align:center;font-size:11px;color:var(--muted)}
+.mini .col{height:46px;background:var(--chip);border-radius:6px;position:relative;overflow:hidden;margin-bottom:4px}
+.mini .col i{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,var(--navy2),var(--navy));border-radius:6px 6px 0 0}
+.t-foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:13px;color:var(--muted)}
+.notes{display:grid;gap:12px;margin-top:16px}
+.note{padding:14px 16px;background:var(--chip);border-left:3px solid var(--gold);border-radius:8px;font-size:14px}
+.note small{display:block;color:var(--muted);margin-top:4px}
+.empty{text-align:center;padding:50px 20px;color:var(--muted)}
+.empty h3{color:var(--text);margin:8px 0 6px}
+.criteria{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+dialog{
+  border:0; padding:0; width:100vw; max-width:none; height:100dvh; max-height:none;
+  border-radius:0; box-shadow:none; overflow:hidden; position:fixed; inset:0; margin:0;
+  background:var(--bg); color:var(--text);
+}
+dialog:not([open]){display:none}
+dialog[open]{display:flex;flex-direction:column}
+dialog::backdrop{background:var(--bg)}
+
+.dlg-head{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;padding:26px 32px;display:flex;justify-content:space-between;gap:16px;flex:none}
+.dlg-body{padding:30px 32px;overflow:auto;flex:1;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.x{background:rgba(255,255,255,.18);border:0;color:#fff;width:36px;height:36px;border-radius:9px;cursor:pointer;font-size:18px;height:36px}
+.rec{border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:14px;background:rgba(255,255,255,.02)}
+.rec-top{display:flex;justify-content:space-between;gap:10px;font-size:14px;flex-wrap:wrap}
+.rec b{font-family:'Chakra Petch',sans-serif}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
+.skeleton{background:linear-gradient(90deg,#17191c 25%,#202327 50%,#17191c 75%);background-size:200% 100%;animation:sk 1.2s infinite;border-radius:10px;height:18px}
+@keyframes sk{to{background-position:-200% 0}}
+@media (max-width:900px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  #kpis .kpi{border-right:1px solid var(--line)}
+  #kpis .kpi:nth-child(2n){border-right:0}
+  #kpis .kpi:nth-child(n+3){border-top:1px solid var(--line)}
+  .grid2{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+  .kpis{grid-template-columns:1fr}
+  #kpis .kpi{border-right:0;border-top:1px solid var(--line)}
+  #kpis .kpi:first-child{border-top:0}
+  .kpi .val{font-size:30px}
+  .teachers{grid-template-columns:1fr}
+  .brand-logo{width:40px;height:44px}
+  .mascot-corner{width:92px;left:-4px}
+}
+@media print{.mascot-corner{display:none}:root{--bg:#ffffff;--card:#fff;--text:#1a1a1a;--muted:#666666;--line:#dddddd;--chip:#f5f5f5;--input:#fff}
+  .hero .btn,.toolbar input,.toolbar select,.toolbar .btn{display:none}.hero{padding-bottom:70px}body{background:#fff}.card{box-shadow:none;border:1px solid var(--line)}}
+
+/* ==============================
+   RESPONSIVE INPUT FORM
+   ============================== */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.form-group.full{
+  grid-column:1/-1;
+}
+
+.form-label{
+  font-size:13px;
+  font-weight:600;
+  color:var(--text);
+}
+
+.form-label span{
+  color:var(--navy2);
+}
+
+.form-control{
+  width:100%;
+  min-width:0;
+  min-height:44px;
+  padding:10px 13px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--input);
+  color:var(--text);
+  font-family:inherit;
+  font-size:16px;
+  transition:.15s;
+}
+
+.form-control:focus{
+  outline:none;
+  border-color:var(--navy2);
+  box-shadow:0 0 0 3px rgba(232,55,75,.12);
+}
+
+textarea.form-control{
+  min-height:100px;
+  resize:vertical;
+}
+
+.score-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.score-hint{margin-top:-5px;margin-bottom:2px;color:var(--muted);font-size:12px;}
+
+
+.score-item{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  min-width:0;
+  padding:12px 10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--surface2);
+}
+
+.score-number{
+  display:inline-grid;
+  place-items:center;
+  flex:none;
+  width:24px;
+  height:24px;
+  margin:0;
+  border-radius:7px;
+  background:rgba(232,55,75,.14);
+  color:var(--navy2);
+  font-family:'Chakra Petch',sans-serif;
+  font-size:13px;
+  font-weight:700;
+}
+.score-item label{
+  display:flex;
+  flex-direction:row;
+  align-items:flex-start;
+  justify-content:flex-start;
+  gap:12px;
+  min-height:72px;
+  color:var(--text);
+  font-size:13px;
+  font-weight:600;
+  line-height:1.55;
+  text-align:left;
+  overflow-wrap:anywhere;
+}
+.score-item label > span:last-child{display:block;flex:1;width:auto;padding-top:3px;}
+.score-number{
+  display:inline-grid;
+  place-items:center;
+  width:30px;
+  height:30px;
+  border-radius:9px;
+  background:linear-gradient(135deg,rgba(200,16,46,.22),rgba(232,55,75,.12));
+  border:1px solid rgba(232,55,75,.28);
+  color:#ff7585;
+  font-family:'Chakra Petch',sans-serif;
+  font-size:14px;
+  font-weight:700;
+}
+.score-item .form-control{margin-top:auto;border-color:#34383e;background:#111316;}
+.score-item:focus-within{border-color:rgba(232,55,75,.7);box-shadow:0 0 0 2px rgba(232,55,75,.08);}
+
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+
+.btn-save{
+  background:var(--navy2);
+  color:#fff;
+  min-height:44px;
+  padding:10px 22px;
+}
+
+.btn-save:hover{
+  background:var(--navy);
+}
+
+.btn-cancel{
+  background:var(--chip);
+  color:var(--text);
+  min-height:44px;
+}
+
+.form-status{
+  display:none;
+  margin-top:14px;
+  padding:12px 14px;
+  border-radius:10px;
+  font-size:13px;
+}
+
+.form-status.success{
+  display:block;
+  background:rgba(50,180,100,.12);
+  color:#70d99a;
+}
+
+.form-status.error{
+  display:block;
+  background:rgba(232,55,75,.12);
+  color:#ff8b98;
+}
+
+@media(max-width:600px){
+
+  dialog{width:100vw;height:100dvh;max-width:none;max-height:none;border-radius:0;}
+
+  .dlg-head{
+    padding:18px 18px;
+  }
+
+  .dlg-body{
+    padding:18px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+    gap:13px;
+  }
+
+  .form-group.full{
+    grid-column:auto;
+  }
+
+  .score-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .score-item{padding:12px 10px;}
+  .score-item label{min-height:0;font-size:13px;}
+
+  .score-item select{
+    padding-left:4px;
+    padding-right:4px;
+    text-align:center;
+  }
+
+  .form-actions{
+    position:sticky;
+    bottom:0;
+    background:var(--card);
+    margin-left:-18px;
+    margin-right:-18px;
+    margin-bottom:-18px;
+    padding:14px 18px;
+  }
+
+  .form-actions .btn{
+    flex:1;
+    justify-content:center;
+  }
+}
+
+@media(max-width:380px){
+
+  .score-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+/* ==============================
+   UI POLISH
+   ============================== */
+:root{--radius:18px;--line:#22252A;--card:#131518;--shadow:0 1px 0 rgba(255,255,255,.04) inset,0 18px 40px -18px rgba(0,0,0,.7)}
+body{background:radial-gradient(1200px 600px at 85% -10%,rgba(200,16,46,.10),transparent 60%),var(--bg);font-feature-settings:"tnum" 1;text-rendering:optimizeLegibility}
+::selection{background:rgba(232,55,75,.35)}
+.hero{background:linear-gradient(135deg,#0B0C0F 0%,#3A0A14 38%,#A80F28 78%,#D42B41 100%);padding:44px 20px 108px;border-bottom:1px solid rgba(255,255,255,.06)}
+.hero::before{background:repeating-linear-gradient(115deg,rgba(255,255,255,.028) 0 1px,transparent 1px 56px)}
+.hero::after{background:radial-gradient(circle,rgba(212,160,23,.16),transparent 68%)}
+.hero-top{align-items:center;gap:22px}
+.brand-row{gap:18px}
+.brand-logo{width:68px;height:72px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.72;font-weight:500}
+h1{font-size:clamp(24px,3.4vw,34px);font-weight:600;letter-spacing:0;line-height:1.25;margin-top:2px}
+.sub{font-size:13px;opacity:.7;margin-top:4px;letter-spacing:.02em}
+.btn{border-radius:12px;padding:10px 16px;font-weight:500;transition:background .18s,border-color .18s,transform .18s,box-shadow .18s}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible,.t-card:focus-visible,.x:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.btn-ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.3)}
+#btnNew{background:#fff;color:#A80F28;border-color:#fff;font-weight:600;box-shadow:0 8px 22px -10px rgba(0,0,0,.6)}
+#btnNew:hover{background:#FFF1F2}
+main{margin-top:-72px}
+.card,.kpis{box-shadow:var(--shadow)}
+.card{padding:24px;background:linear-gradient(180deg,rgba(255,255,255,.022),rgba(255,255,255,0) 40%),var(--card)}
+.kpis{border-top:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0) 50%),var(--card);position:relative}
+.kpis::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--navy2) 80%,transparent);opacity:.9}
+#kpis .kpi{padding:24px}
+.kpi .icon{width:40px;height:40px;border-radius:12px;background:rgba(232,55,75,.1);border:1px solid rgba(232,55,75,.18);margin-bottom:14px}
+.kpi .lbl{font-size:12.5px;letter-spacing:.02em}
+.kpi .val{font-size:34px;font-weight:600;color:#fff;letter-spacing:-.01em}
+h2{font-size:17px;font-weight:600;letter-spacing:.005em}
+.sec-sub{font-size:12.5px}
+.criteria-score{border-radius:14px;background:rgba(255,255,255,.02);transition:border-color .18s,background .18s}
+.criteria-score:hover{border-color:#30343A;background:rgba(255,255,255,.035)}
+.criteria-score .track{height:6px}
+.track{height:6px;background:#1E2126}
+.badge{font-size:12.5px;font-weight:500;padding:4px 11px;border:1px solid rgba(255,255,255,.06)}
+input,select{border-radius:12px;padding:10px 14px;transition:border-color .18s,box-shadow .18s}
+input:hover,select:hover{border-color:#30343A}
+input:focus,select:focus{outline:0;border-color:var(--navy2);box-shadow:0 0 0 3px rgba(232,55,75,.22)}
+.toolbar{margin:34px 0 18px}
+.teachers{gap:20px}
+.t-card{transition:transform .2s,border-color .2s,box-shadow .2s}
+.t-card:hover{transform:translateY(-2px);border-color:rgba(232,55,75,.45);box-shadow:0 22px 44px -20px rgba(0,0,0,.8)}
+.t-card::before{top:-10px;left:-10px;box-shadow:0 4px 10px rgba(0,0,0,.4)}
+.avatar{clip-path:none;border-radius:14px;width:46px;height:46px;font-weight:600;box-shadow:0 0 0 1px rgba(255,255,255,.08) inset}
+.t-name{font-weight:600}
+.t-score .n{font-size:24px;font-weight:600}
+.mini .col{height:42px;border-radius:8px;background:#1A1D21}
+.mini .col i{border-radius:8px;background:linear-gradient(180deg,#E8374B,#A80F28);opacity:.92}
+.t-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.note{border-left:0;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02);position:relative;padding-left:20px}
+.note::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:3px;background:var(--gold)}
+.dlg-head{background:linear-gradient(120deg,#3A0A14,#A80F28 60%,#D42B41)}
+.x{border-radius:10px;transition:background .18s}
+.x:hover{background:rgba(255,255,255,.3)}
+footer{margin-top:8px;padding:22px 20px 44px;border-top:1px solid var(--line);max-width:1180px;margin-left:auto;margin-right:auto;font-size:12.5px;display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;position:relative;z-index:2}
+footer .dev b{color:var(--text);font-weight:500}
+*{scrollbar-width:thin;scrollbar-color:#2A2E33 transparent}
+@media (max-width:1500px){.mascot-corner{display:none}}
+@media (max-width:700px){.hero{padding:28px 16px 96px}.brand-logo{width:48px;height:52px}.hero-top>div:last-child{width:100%}.hero .btn{flex:1 1 auto;justify-content:center}footer{justify-content:center;text-align:center}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.kpis::before{display:none}.kpi .val{color:#1a1a1a}footer{border-top:1px solid #ddd}}
+/* แถบคู่มือการใช้งาน — ย่อ/ขยายได้ อยู่ใต้หัวข้อของหน้าและของแบบฟอร์ม */
+.guide{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--navy);border-radius:12px;margin:0 0 18px;color:var(--text)}
+.guide summary{display:flex;align-items:center;gap:8px;padding:11px 16px;cursor:pointer;list-style:none;font-size:14px;font-weight:500}
+.guide summary::-webkit-details-marker{display:none}
+.guide summary:focus-visible{outline:2px solid var(--navy2);outline-offset:2px;border-radius:10px}
+.guide .g-ic{color:var(--navy2);flex:none}
+.guide .g-hint{color:var(--muted);font-weight:400;font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.guide .g-ch{margin-left:auto;flex:none;color:var(--muted);transition:transform .15s}
+.guide[open] .g-ch{transform:rotate(180deg)}
+.guide[open] .g-hint{display:none}
+.guide .g-body{padding:0 16px 16px 40px;font-size:14px;line-height:1.75;max-width:78ch}
+.guide .g-body p{color:var(--muted);margin:0}
+.guide .g-label{font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--navy2);margin:10px 0 2px}
+.guide .g-body ol,.guide .g-body ul{margin:0;padding-left:20px}
+@media (max-width:600px){.guide .g-hint{display:none}.guide .g-body{padding-left:16px}}
+@media print{.guide{display:none}}
+</style>
+</head>
+<body>
+<img class="mascot-corner" src="mascot.png" alt="" aria-hidden="true">
+<header class="hero">
+  <div class="wrap hero-top">
+    <div>
+      <div class="brand-row">
+        <img class="brand-logo" src="logo.png" alt="ACT Sport Center">
+        <div>
+          <div class="eyebrow">ASSUMPTION COLLEGE THONBURI · ACT SPORT CENTER</div>
+          <h1>ระบบนิเทศการสอน-ACT SPORT CENTER</h1>
+          <div class="sub" id="updated">กำลังโหลดข้อมูล…</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn btn-ghost" id="btnHome" href="https://act-sport-center2026.vercel.app"><span data-ic="home"></span>หน้าหลัก</a>
+      <button class="btn btn-ghost" id="btnNew" type="button"><span data-ic="plus"></span>บันทึกการนิเทศ</button>
+      <button class="btn btn-ghost" id="btnRefresh" type="button"><span data-ic="refresh"></span>รีเฟรช</button>
+      <button class="btn btn-ghost" onclick="window.print()"><span data-ic="printer"></span>พิมพ์ / PDF</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <details class="guide">
+    <summary><svg class="g-ic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>คู่มือการใช้งานหน้านี้</span><span class="g-hint">· แดชบอร์ดสรุปผลการนิเทศการสอนของครูศูนย์กีฬา</span><svg class="g-ch" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+    <div class="g-body">
+      <p>แดชบอร์ดสรุปผลการนิเทศการสอนของครูศูนย์กีฬา ข้อมูลทุกส่วนเปลี่ยนตามตัวกรองที่เลือก</p>
+      <div class="g-label">ขั้นตอน</div>
+      <ol>
+        <li>อ่านการ์ดสรุปด้านบน: จำนวนการนิเทศ จำนวนครูที่ได้รับการนิเทศ คะแนนเฉลี่ยรวม และระดับผลรวม</li>
+        <li>ดูคะแนนเฉลี่ยของทั้ง 5 ด้าน และสัดส่วนระดับผลการประเมิน</li>
+        <li>ในหัวข้อ “รายบุคคล” เลือกครู ผู้นิเทศ หรือวิชา/ชั้นปี และเลือกวิธีเรียงลำดับ</li>
+        <li>กด “ดูรายละเอียด” ที่การ์ดของครูเพื่อดูคะแนนรายด้านและประวัติการนิเทศทุกครั้ง</li>
+        <li>กด “บันทึกการนิเทศ” ด้านบนเพื่อบันทึกการนิเทศครั้งใหม่</li>
+      </ol>
+      <div class="g-label">ข้อควรรู้</div>
+      <ul>
+        <li>เกณฑ์คะแนนเฉลี่ย: ดีมาก 4.50–5.00 · ดี 3.50–4.49 · พอใช้ 2.00–3.49 · ปรับปรุง 0.00–1.99</li>
+        <li>กด “รีเฟรช” เพื่อดึงข้อมูลล่าสุด เวลาอัปเดตแสดงอยู่ใต้ชื่อระบบ</li>
+        <li>“พิมพ์ / PDF” จะพิมพ์ตามตัวกรองที่เลือกอยู่</li>
+      </ul>
+    </div>
+  </details>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>คะแนนเฉลี่ยรายด้านการนิเทศ</h2>
+      <div class="sec-sub">คะแนนเต็ม 5 · ตามตัวกรองที่เลือก</div>
+      <div class="bars" id="bars"></div>
+    </div>
+    <div class="card">
+      <h2>สัดส่วนระดับผลการประเมิน</h2>
+      <div class="sec-sub">นับตามครูผู้รับการนิเทศ</div>
+      <div class="donut-wrap">
+        <div class="donut" id="donut"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="sec-sub" style="margin-top:18px">เกณฑ์คะแนนเฉลี่ย</div>
+      <div class="criteria" id="criteria"></div>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <h2>รายบุคคล</h2>
+    <select id="q" aria-label="เลือกครู"><option value="">ครูทั้งหมด</option></select>
+    <select id="fSup"><option value="">ผู้นิเทศทั้งหมด</option></select>
+    <select id="fSub"><option value="">ทุกวิชา / ชั้นปี</option></select>
+    <select id="sort">
+      <option value="avg">เรียงตามคะแนน (สูง→ต่ำ)</option>
+      <option value="avgAsc">เรียงตามคะแนน (ต่ำ→สูง)</option>
+      <option value="name">เรียงตามชื่อ</option>
+      <option value="count">เรียงตามจำนวนครั้ง</option>
+    </select>
+  </div>
+  <section class="teachers" id="teachers"></section>
+
+  <div class="toolbar"><h2>ข้อเสนอแนะล่าสุด</h2></div>
+  <section class="card"><div class="notes" id="notes"></div></section>
+</main>
+
+
+<dialog id="detailDlg" aria-labelledby="dName">
+  <div class="dlg-head">
+    <div>
+      <div class="eyebrow">ACT SPORT CENTER</div>
+      <h2 id="dName" style="color:#fff;font-size:22px"></h2>
+      <div id="dSub" style="font-size:13px;opacity:.85;margin-top:3px"></div>
+      <div id="dBadge" style="margin-top:8px"></div>
+    </div>
+    <button class="x" id="closeDetail" aria-label="กลับหน้าหลัก" title="กลับหน้าหลัก" type="button"><span data-ic="x"></span></button>
+  </div>
+  <div class="dlg-body" id="dBody"></div>
+</dialog>
+
+<footer><span>ข้อมูลอัปเดตอัตโนมัติจาก Google Sheets</span><span class="dev">พัฒนาโดย <b>P.Prayoon-Anutep</b></span></footer>
+
+<dialog id="dlg">
+
+  <div class="dlg-head">
+
+    <div class="brand-row">
+      <img class="brand-logo" src="logo.png" alt="ACT Sport Center">
+      <div>
+      <div class="eyebrow">ACT SPORT CENTER</div>
+
+      <h2 style="color:#fff;font-size:22px">
+        บันทึกการนิเทศการสอน
+      </h2>
+
+      <div style="font-size:13px;opacity:.8;margin-top:3px">
+        ระบบนิเทศการสอน ศูนย์กีฬาโรงเรียนอัสสัมชัญธนบุรี
+      </div>
+      </div>
+    </div>
+
+    <button
+      class="x"
+      onclick="dlg.close()"
+      aria-label="กลับหน้าหลัก" title="กลับหน้าหลัก"
+      type="button">
+      <span data-ic="x"></span>
+    </button>
+
+  </div>
+
+
+  <div class="dlg-body">
+
+    <details class="guide">
+      <summary><svg class="g-ic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>คู่มือการกรอกแบบฟอร์มนี้</span><span class="g-hint">· กรอกช่องที่มี * ให้ครบก่อนบันทึก</span><svg class="g-ch" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="g-body">
+        <p>ใช้บันทึกผลการนิเทศการสอน 1 ครั้งต่อ 1 แบบฟอร์ม</p>
+        <div class="g-label">ขั้นตอน</div>
+        <ol>
+          <li>ระบุครูผู้รับการนิเทศ ระดับชั้น และชนิดกีฬา</li>
+          <li>ระบุผู้นิเทศ และกรอกรหัสผู้นิเทศ</li>
+          <li>ให้คะแนน 1–5 ให้ครบทั้ง 5 ด้าน (5 = ดีมาก, 1 = ต้องปรับปรุง)</li>
+          <li>เขียนข้อเสนอแนะ ซึ่งจะแสดงในหัวข้อ “ข้อเสนอแนะล่าสุด” ของแดชบอร์ด</li>
+          <li>กด “บันทึกข้อมูล” หรือ “ยกเลิก” เพื่อปิดโดยไม่บันทึก</li>
+        </ol>
+        <div class="g-label">ข้อควรรู้</div>
+        <ul>
+          <li>ช่องที่มีเครื่องหมาย * ต้องกรอกทุกช่อง</li>
+          <li>ตรวจชื่อครูและคะแนนก่อนบันทึก เพราะข้อมูลจะถูกนำไปคิดคะแนนเฉลี่ยทันที</li>
+        </ul>
+      </div>
+    </details>
+    <form id="supervisionForm">
+
+      <div class="form-grid">
+
+        <!-- ครู -->
+        <div class="form-group full">
+          <label class="form-label">
+            ครูผู้รับการนิเทศ <span>*</span>
+          </label>
+
+          <select class="form-control" id="formTeacher" name="teacher" required><option value="">กำลังโหลดรายชื่อ…</option></select>
+        </div>
+
+
+        <!-- วิชา / ระดับ -->
+        <div class="form-group">
+          <label class="form-label">
+            ระดับชั้น <span>*</span>
+          </label>
+
+          <select class="form-control" id="formSubject" name="grade" required>
+            <option value="">เลือกระดับชั้น</option>
+            <option value="ป.1">ป.1</option>
+            <option value="ป.2">ป.2</option>
+            <option value="ป.3">ป.3</option>
+            <option value="ป.4">ป.4</option>
+            <option value="ป.5">ป.5</option>
+            <option value="ป.6">ป.6</option>
+            <option value="ม.1">ม.1</option>
+            <option value="ม.2">ม.2</option>
+            <option value="ม.3">ม.3</option>
+            <option value="ม.4">ม.4</option>
+            <option value="ม.5">ม.5</option>
+            <option value="ม.6">ม.6</option>
+          </select>
+        </div>
+
+
+        <!-- ชนิดกีฬา -->
+        <div class="form-group">
+
+          <label class="form-label">
+            ชนิดกีฬา <span>*</span>
+          </label>
+
+          <select
+            class="form-control"
+            id="formSport"
+            name="sport"
+            required>
+
+            <option value="">เลือกชนิดกีฬา</option>
+
+            <option value="ฟุตบอล">ฟุตบอล</option>
+            <option value="ฟุตซอล">ฟุตซอล</option>
+            <option value="บาสเกตบอล">บาสเกตบอล</option>
+            <option value="วอลเลย์บอล">วอลเลย์บอล</option>
+            <option value="แบดมินตัน">แบดมินตัน</option>
+            <option value="เทเบิลเทนนิส">เทเบิลเทนนิส</option>
+            <option value="เทนนิส">เทนนิส</option>
+            <option value="ว่ายน้ำ">ว่ายน้ำ</option>
+            <option value="กรีฑา">กรีฑา</option>
+            <option value="ยิมนาสติก">ยิมนาสติก</option>
+            <option value="แชร์บอล">แชร์บอล</option>
+            <option value="กิจกรรมนันทนาการ">กิจกรรมนันทนาการ</option>
+            <option value="อื่น ๆ">อื่น ๆ</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group full" id="formSportOtherWrap" style="display:none">
+          <label class="form-label">ระบุชนิดกีฬา <span>*</span></label>
+          <input class="form-control" id="formSportOther" type="text" placeholder="เช่น เซปักตะกร้อ">
+        </div>
+        <!-- ผู้นิเทศ -->
+        <div class="form-group full">
+
+          <label class="form-label">
+            ผู้นิเทศ <span>*</span>
+          </label>
+
+          <select class="form-control" id="formSupervisor" name="supervisor" required><option value="">กำลังโหลดรายชื่อ…</option></select>
+        </div>
+        <div class="form-group full" id="formSupervisorOtherWrap" style="display:none">
+          <label class="form-label">ระบุชื่อผู้นิเทศ <span>*</span></label>
+          <input class="form-control" id="formSupervisorOther" type="text" placeholder="ชื่อ-นามสกุลผู้นิเทศ">
+        </div>
+        <div class="form-group full">
+          <label class="form-label">รหัสผู้นิเทศ <span>*</span></label>
+          <input class="form-control" id="formPass" type="password" autocomplete="off" required>
+        </div>
+
+
+        <!-- คะแนน -->
+        <div class="form-group full">
+
+          <label class="form-label">
+            คะแนนการนิเทศ <span>*</span>
+          </label>
+          <div class="score-hint">เลือกคะแนน 1–5 สำหรับแต่ละหัวข้อ</div>
+
+          <div class="score-grid">
+
+            <div class="score-item">
+              <label><span class="score-number">1</span><span>การเตรียมและการใช้สื่อ/นวัตกรรมการสอน</span></label>
+              <select class="form-control" id="score1" required>
+                <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div class="score-item">
+              <label><span class="score-number">2</span><span>วิธีการสอนและการกระตุ้นการเรียนรู้</span></label>
+              <select class="form-control" id="score2" required>
+                <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div class="score-item">
+              <label><span class="score-number">3</span><span>ลำดับขั้นตอนการจัดกิจกรรมการสอน</span></label>
+              <select class="form-control" id="score3" required>
+                <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div class="score-item">
+              <label><span class="score-number">4</span><span>การวัดและประเมินผลในชั้นเรียน</span></label>
+              <select class="form-control" id="score4" required>
+                <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div class="score-item">
+              <label><span class="score-number">5</span><span>การจัดบรรยากาศและสิ่งแวดล้อมการเรียนรู้</span></label>
+              <select class="form-control" id="score5" required>
+                <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ข้อเสนอแนะ -->
+        <div class="form-group full">
+
+          <label class="form-label">
+            ข้อเสนอแนะ
+          </label>
+
+          <textarea
+            class="form-control"
+            id="formNote"
+            name="note"
+            placeholder="บันทึกข้อเสนอแนะ หรือประเด็นที่ควรพัฒนา..."></textarea>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="formStatus"
+        class="form-status">
+      </div>
+
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="btn btn-cancel"
+          onclick="dlg.close()">
+          ยกเลิก
+        </button>
+
+        <button
+          type="submit"
+          class="btn btn-save">
+          <span data-ic="check"></span>
+          บันทึกข้อมูล
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</dialog>
+<script>
+const SHEET_ID = '1cMsTnDg4FzIujdaAwea18wxCD24mfs_c0l4yWPSSAXg';
+// ใส่ URL ของ Google Apps Script Web App ที่ตั้งค่าให้บันทึกลงชีต Data
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc4YcepM007R3BqDtOc1xq3UcRbZek72s26fFzVY1jOIzlP3n_GkmoMc1PulAcR9Z7lw/exec';
+const url = s => `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${s}`;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const DEFAULT_LEVELS = [{min:4.5,name:'ดีมาก'},{min:3.5,name:'ดี'},{min:2,name:'พอใช้'},{min:0,name:'ปรับปรุง'}];
+const LV_COLOR = ['#D4A017','#F3F1EC','#6b6e73','#E8374B'];
+const AV = ['#C8102E','#3A3F44','#8C1D2B','#52585E','#A3142B','#2B2F33','#D4A017'];
+let LEVELS = DEFAULT_LEVELS, DATA = [], HEADS = [], demo = false;
+const ICONS = {
+  clipboard:'<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4M12 16h4M8 11h.01M8 16h.01"/>',
+  users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  chart:'<path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/>',
+  award:'<circle cx="12" cy="8" r="6"/><path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"/>',
+  refresh:'<path d="M21 12a9 9 0 1 1-2.64-6.36L21 8"/><path d="M21 3v5h-5"/>',
+  printer:'<path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8" rx="1"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  home:'<path d="m3 10.5 9-7.5 9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/>',
+  x:'<path d="M18 6 6 18M6 6l12 12"/>',
+  inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',
+  check:'<path d="M20 6 9 17l-5-5"/>',
+  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  eye:'<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/>',
+  alert:'<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/>'
+};
+const ic = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||''}</svg>`;
+const hydrateIcons = (root=document) => root.querySelectorAll('[data-ic]').forEach(e=>{e.outerHTML=ic(e.dataset.ic)});
+hydrateIcons();
+// Fallback for browsers/webviews without <dialog>.showModal()
+document.querySelectorAll('dialog').forEach(dg=>{
+  if(typeof dg.showModal!=='function'){
+    dg.showModal=function(){this.setAttribute('open','');document.body.style.overflow='hidden'};
+    dg.close=function(){this.removeAttribute('open');document.body.style.overflow=''};
+  }
+});
+
+function parseCSV(t){
+  const rows=[];let r=[],c='',q=false;
+  for(let i=0;i<t.length;i++){
+    const ch=t[i];
+    if(q){ if(ch==='"'){ if(t[i+1]==='"'){c+='"';i++} else q=false } else c+=ch }
+    else if(ch==='"') q=true;
+    else if(ch===','){r.push(c);c=''}
+    else if(ch==='\n'||ch==='\r'){ if(ch==='\r'&&t[i+1]==='\n')i++; r.push(c);c='';rows.push(r);r=[] }
+    else c+=ch;
+  }
+  if(c!==''||r.length){r.push(c);rows.push(r)}
+  return rows.filter(x=>x.some(v=>v!==''));
+}
+const levelIdx = a => { for(let i=0;i<LEVELS.length;i++) if(a>=LEVELS[i].min) return i; return LEVELS.length-1 };
+const badge = a => a==null?'<span class="badge lv0">-</span>':`<span class="badge lv${levelIdx(a)+1}">${esc(LEVELS[levelIdx(a)].name)}</span>`;
+const avg = arr => { const v=arr.filter(x=>typeof x==='number'&&!isNaN(x)); return v.length?v.reduce((a,b)=>a+b,0)/v.length:null };
+const f2 = n => n==null?'-':n.toFixed(2);
+
+async function load(){
+  $('updated').textContent='กำลังโหลดข้อมูล…';
+  try{
+    const [d,c] = await Promise.all([fetch(url('Data')).then(r=>{if(!r.ok)throw new Error('Data HTTP '+r.status);return r.text()}), fetch(url('Criteria')).then(r=>r.ok?r.text():'').catch(()=>'')]);
+    const rows = parseCSV(d);
+    HEADS = rows[0] || [];
+    DATA = rows.slice(1).map(r=>({
+      ts:r[0]||'', teacher:(r[1]||'').trim(), subject:(r[2]||'').trim(), sup:(r[3]||'').trim(),
+      scores:[4,5,6,7,8].map(i=>{const n=parseFloat(r[i]);return isNaN(n)?null:n}), note:(r[9]||'').trim()
+    })).filter(x=>x.teacher);
+    const cr = parseCSV(c).slice(1).map(r=>({min:parseFloat(r[0]),name:(r[1]||'').trim()})).filter(x=>!isNaN(x.min)&&x.name).sort((a,b)=>b.min-a.min);
+    LEVELS = cr.length===4?cr:DEFAULT_LEVELS;
+    demo=false;
+    $('updated').textContent='อัปเดตล่าสุด '+new Date().toLocaleString('th-TH',{dateStyle:'medium',timeStyle:'short'})+' น.';
+  }catch(e){
+    $('updated').textContent='โหลดข้อมูลไม่สำเร็จ — ตรวจสอบว่าชีตเปิดแชร์แบบ "ทุกคนที่มีลิงก์"';
+    DATA=[];
+  }
+  fillFilters(); render();
+}
+
+function demoData(){
+  const T=[['ครูสมชาย ใจดี','พลศึกษา (ฟุตบอล) ม.2'],['ครูวิภา รักเรียน','พลศึกษา (ว่ายน้ำ) ม.4'],['ครูนภา สุขใจ','พลศึกษา (แบดมินตัน) ม.1'],['ครูธนา พัฒนา','พลศึกษา (บาสเกตบอล) ม.3'],['ครูมะลิ งามพรรณ','พลศึกษา (กรีฑา) ม.5']];
+  const S=['หัวหน้าศูนย์กีฬา','รองฯ ประไพ']; const notes=['ควรเพิ่มกิจกรรมกลุ่มให้ผู้เรียนมีส่วนร่วมมากขึ้น','สื่อ/อุปกรณ์กีฬาเหมาะสม ผู้เรียนตอบสนองดี','ควรสรุปทักษะท้ายคาบให้ชัดเจน',''];
+  let k=0; DATA=[];
+  T.forEach((t,i)=>{ for(let j=0;j<2;j++){ DATA.push({ts:`2026-09-${10+i+j*3} 10:30`,teacher:t[0],subject:t[1],sup:S[(i+j)%2],
+    scores:[0,1,2,3,4].map(x=>Math.max(1,Math.min(5,Math.round(3+((i*7+j*3+x*5)%4)-1+ (i%2?1:0))))),note:notes[(k++)%4]}); } });
+  HEADS=['','','','','1. การเตรียมและการใช้สื่อ/นวัตกรรมการสอน','2. วิธีการสอนและการกระตุ้นการเรียนรู้','3. ลำดับขั้นตอนการจัดกิจกรรมการสอน','4. การวัดและประเมินผลในชั้นเรียน','5. การจัดบรรยากาศและสิ่งแวดล้อมการเรียนรู้'];
+  demo=true; $('updated').textContent='กำลังแสดงข้อมูลตัวอย่าง (ยังไม่ใช่ข้อมูลจริง)'; fillFilters(); render();
+}
+
+function fillFilters(){
+  const opt=(id,vals,label)=>{const el=$(id),cur=el.value;el.innerHTML=`<option value="">${label}</option>`+[...new Set(vals)].filter(Boolean).sort().map(v=>`<option>${esc(v)}</option>`).join('');el.value=cur};
+  opt('q',DATA.map(d=>d.teacher),'ครูทั้งหมด'); opt('fSup',DATA.map(d=>d.sup),'ผู้นิเทศทั้งหมด'); opt('fSub',DATA.map(d=>d.subject),'ทุกวิชา / ชั้นปี');
+}
+
+function filtered(){
+  const q=$('q').value, s=$('fSup').value, b=$('fSub').value;
+  return DATA.filter(d=>(!q||d.teacher===q)&&(!s||d.sup===s)&&(!b||d.subject===b));
+}
+
+function groupTeachers(rows){
+  const m=new Map();
+  rows.forEach(r=>{ if(!m.has(r.teacher)) m.set(r.teacher,{name:r.teacher,subject:r.subject,recs:[]}); const g=m.get(r.teacher); g.recs.push(r); if(r.subject) g.subject=r.subject });
+  return [...m.values()].map(g=>({...g,count:g.recs.length,
+    crit:[0,1,2,3,4].map(i=>avg(g.recs.map(r=>r.scores[i]))), avg:avg(g.recs.flatMap(r=>r.scores))}));
+}
+
+function render(){
+  const rows=filtered(), teachers=groupTeachers(rows);
+  const all=avg(rows.flatMap(r=>r.scores));
+  $('kpis').innerHTML=[
+    ['clipboard','จำนวนการนิเทศทั้งหมด',rows.length,'ครั้ง'],
+    ['users','ครูที่ได้รับการนิเทศ',teachers.length,'คน'],
+    ['chart','คะแนนเฉลี่ยรวม',f2(all),'/ 5'],
+    ['award','ระดับผลการประเมินรวม',null,'']
+  ].map((k,i)=>`<div class="card kpi"><div class="icon">${ic(k[0])}</div><div class="lbl">${k[1]}</div>
+    <div class="val">${i===3?`<span style="font-size:22px;display:inline-block;margin-top:6px">${badge(all)}</span>`:esc(k[2])}${i<3?`<span class="unit">${k[3]}</span>`:''}</div></div>`).join('');
+
+  // bars
+  const names=[0,1,2,3,4].map(i=>(HEADS[4+i]||['การเตรียมและการใช้สื่อ/นวัตกรรมการสอน','วิธีการสอนและการกระตุ้นการเรียนรู้','ลำดับขั้นตอนการจัดกิจกรรมการสอน','การวัดและประเมินผลในชั้นเรียน','การจัดบรรยากาศและสิ่งแวดล้อมการเรียนรู้'][i]).replace(/^\d+\.\s*/,''));
+  $('bars').innerHTML=names.map((n,i)=>{const a=avg(rows.map(r=>r.scores[i]));
+    return `<div class="criteria-score"><div class="top"><span class="num">${i+1}</span><span class="label">${esc(n)}</span><b class="score">${f2(a)}<small style="font:500 11px Kanit,sans-serif;color:var(--muted)"> / 5</small></b></div><div class="track"><div class="fill" data-w="${a?a/5*100:0}"></div></div></div>`}).join('');
+  requestAnimationFrame(()=>document.querySelectorAll('.fill').forEach(e=>e.style.width=e.dataset.w+'%'));
+
+  // donut
+  const cnt=LEVELS.map(()=>0); teachers.forEach(t=>{if(t.avg!=null)cnt[levelIdx(t.avg)]++});
+  const tot=cnt.reduce((a,b)=>a+b,0); let acc=0;
+  const stops=tot?cnt.map((c,i)=>{const s=acc/tot*100;acc+=c;return `${LV_COLOR[i]} ${s}% ${acc/tot*100}%`}).join(','):'#f3dcdb 0 100%';
+  $('donut').style.background=`conic-gradient(${stops})`; $('donut').dataset.center=tot?`${tot}\nคน`:'-';
+  $('legend').innerHTML=LEVELS.map((l,i)=>`<div><i style="background:${LV_COLOR[i]}"></i>${esc(l.name)}<span>${cnt[i]}</span></div>`).join('');
+  $('criteria').innerHTML=LEVELS.map((l,i)=>{const hi=i===0?'5.00':(LEVELS[i-1].min-0.01).toFixed(2);return `<span class="badge lv${i+1}">${esc(l.name)} ${l.min.toFixed(2)}–${hi}</span>`}).join('');
+
+  // teachers
+  const so=$('sort').value;
+  teachers.sort((a,b)=>so==='name'?a.name.localeCompare(b.name,'th'):so==='count'?b.count-a.count:so==='avgAsc'?(a.avg??9)-(b.avg??9):(b.avg??-1)-(a.avg??-1));
+  if(!teachers.length){
+    $('teachers').innerHTML=`<div class="card empty" style="grid-column:1/-1"><div class="em">${ic('inbox')}</div><h3>ยังไม่มีข้อมูลการนิเทศ</h3><p>เมื่อมีการบันทึกลงชีต Data ข้อมูลจะแสดงที่นี่อัตโนมัติ</p><br><button class="btn btn-primary" id="btnDemo">ดูตัวอย่างหน้าตาด้วยข้อมูลสมมติ</button></div>`;
+    const b=$('btnDemo'); if(b) b.onclick=demoData;
+  } else {
+    $('teachers').innerHTML=teachers.map((t,i)=>`<article class="card t-card" data-i="${i}">
+      <div class="t-head"><div class="avatar" style="background:${AV[[...t.name].reduce((a,c)=>a+c.charCodeAt(0),0)%AV.length]}">${esc([...t.name.replace(/^ครู/,'')][0]||'ค')}</div>
+      <div><div class="t-name">${esc(t.name)}</div><div class="t-meta">${esc(t.subject||'-')}</div></div>
+      <div class="t-score"><div class="n">${f2(t.avg)}</div>${badge(t.avg)}</div></div>
+      <div class="mini">${t.crit.map((c,j)=>`<div><div class="col"><i style="height:${(c||0)/5*100}%"></i></div>ด้าน ${j+1}</div>`).join('')}</div>
+      <div class="t-foot"><span>นิเทศแล้ว ${t.count} ครั้ง</span><span class="more">ดูรายละเอียด ${ic('arrow')}</span></div></article>`).join('');
+    document.querySelectorAll('.t-card').forEach(el=>el.onclick=()=>openTeacher(teachers[+el.dataset.i]));
+  }
+
+  // notes
+  const ns=rows.filter(r=>r.note).slice(-8).reverse();
+  $('notes').innerHTML=ns.length?ns.map(r=>`<div class="note">${esc(r.note)}<small>${esc(r.teacher)} · โดย ${esc(r.sup||'-')} · ${esc(r.ts)}</small></div>`).join(''):'<div class="empty" style="padding:24px">ยังไม่มีข้อเสนอแนะ</div>';
+}
+
+function openTeacher(t){
+  $('dSub').textContent=t.subject||''; $('dName').textContent=t.name;
+  $('dBadge').innerHTML=`<span style="font-size:15px;margin-right:8px">คะแนนเฉลี่ย ${f2(t.avg)}</span>${badge(t.avg)}`;
+  const names=[0,1,2,3,4].map(i=>(HEADS[4+i]||['การเตรียมและการใช้สื่อ/นวัตกรรมการสอน','วิธีการสอนและการกระตุ้นการเรียนรู้','ลำดับขั้นตอนการจัดกิจกรรมการสอน','การวัดและประเมินผลในชั้นเรียน','การจัดบรรยากาศและสิ่งแวดล้อมการเรียนรู้'][i]).replace(/^\d+\.\s*/,''));
+  $('dBody').innerHTML=`<h2>คะแนนเฉลี่ยรายด้านการนิเทศ</h2><div class="bars" style="margin-bottom:22px">${t.crit.map((c,i)=>`<div class="criteria-score"><div class="top"><span class="num">${i+1}</span><span class="label">${esc(names[i])}</span><b class="score">${f2(c)}<small style="font:500 11px Kanit,sans-serif;color:var(--muted)"> / 5</small></b></div><div class="track"><div class="fill" style="width:${(c||0)/5*100}%"></div></div></div>`).join('')}</div>
+  <h2>ประวัติการนิเทศ (${t.count} ครั้ง)</h2>`+t.recs.slice().reverse().map(r=>`<div class="rec"><div class="rec-top"><span><b>${esc(r.ts)}</b> · ผู้นิเทศ ${esc(r.sup||'-')}</span><span>เฉลี่ย <b>${f2(avg(r.scores))}</b> ${badge(avg(r.scores))}</span></div>
+  <div style="margin-top:8px;color:var(--muted);font-size:13px">${r.scores.map((s,i)=>`<div style="padding:6px 0;border-bottom:1px solid var(--line)"><span>${esc(names[i])}</span><b style="float:right;color:var(--text)">${s??'-'} / 5</b></div>`).join('')}</div>
+  ${r.note?`<div class="note" style="margin-top:12px">${esc(r.note)}</div>`:''}</div>`).join('');
+  $('detailDlg').showModal();
+}
+
+['q','fSup','fSub','sort'].forEach(id=>$(id).addEventListener('input',render));
+$('btnRefresh').addEventListener('click',load);
+const OTHER_VAL='__other__', SPORT_OTHER='อื่น ๆ';
+let STAFF=null;
+async function loadStaff(){
+  if(STAFF&&STAFF.length) return STAFF;
+  try{
+    const t=await fetch(url('บุคลากร')).then(r=>r.text());
+    STAFF=parseCSV(t).slice(1).map(r=>[r[1],r[2],r[3]].map(x=>(x||'').trim()).filter(Boolean).join(' ')).filter(Boolean);
+  }catch(e){STAFF=[]}
+  return STAFF;
+}
+const uniqTh=a=>[...new Set(a.filter(Boolean))].sort((x,y)=>x.localeCompare(y,'th'));
+const setOpts=(id,list,ph,other)=>{$(id).innerHTML=`<option value="">${esc(ph)}</option>`+list.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('')+(other?`<option value="${OTHER_VAL}">อื่น ๆ (ระบุ)</option>`:'')};
+function syncOther(focus){
+  [['formSport',SPORT_OTHER,'formSportOther'],['formSupervisor',OTHER_VAL,'formSupervisorOther']].forEach(([sel,val,inp])=>{
+    const on=$(sel).value===val;
+    $(inp+'Wrap').style.display=on?'':'none'; $(inp).required=on;
+    if(!on) $(inp).value=''; else if(focus===sel) $(inp).focus();
+  });
+}
+$('formSport').addEventListener('change',()=>syncOther('formSport'));
+$('formSupervisor').addEventListener('change',()=>syncOther('formSupervisor'));
+async function fillFormLists(){
+  setOpts('formTeacher',[],'กำลังโหลดรายชื่อ…'); setOpts('formSupervisor',[],'กำลังโหลดรายชื่อ…');
+  const names=uniqTh(await loadStaff());
+  setOpts('formTeacher',names.length?names:uniqTh(DATA.map(d=>d.teacher)),'เลือกชื่อครู');
+  setOpts('formSupervisor',uniqTh([...names,...DATA.map(d=>d.sup)]),'เลือกชื่อผู้นิเทศ',true);
+  syncOther();
+}
+$('btnNew').addEventListener('click',()=>{
+  $('supervisionForm').reset(); syncOther();
+  $('formStatus').className='form-status';
+  $('formStatus').textContent='';
+  $('dlg').showModal();
+  fillFormLists();
+});
+$('closeDetail').addEventListener('click',()=>$('detailDlg').close());
+$('dlg').addEventListener('click',e=>{if(e.target===$('dlg'))$('dlg').close()});
+$('detailDlg').addEventListener('click',e=>{if(e.target===$('detailDlg'))$('detailDlg').close()});
+// Timestamp cell written by Apps Script. The sheet's locale decides whether it reads M/D/YYYY or
+// D/M/YYYY (sometimes with a comma), so return both readings as candidates.
+function parseSheetTimestamps(s){
+  const m=/^(\d{1,2})\/(\d{1,2})\/(\d{4}),?\s+(\d{1,2}):(\d{2})(?::(\d{2}))?$/.exec((s||'').trim());
+  if(!m) return [];
+  const [a,b,yr,h,mi,se]=m.slice(1).map(x=>Number(x||0)), out=[];
+  if(a<=12) out.push(new Date(yr,a-1,b,h,mi,se).getTime());
+  if(b<=12) out.push(new Date(yr,b-1,a,h,mi,se).getTime());
+  return out;
+}
+// The Apps Script response can't be read reliably across browsers (Safari, redirects), so success is
+// confirmed by finding the new row in the sheet itself.
+async function wasActuallySaved(payload,submittedAt){
+  try{
+    const t=await fetch(url('Data'),{cache:'no-store'}).then(r=>r.text());
+    return parseCSV(t).slice(1).some(r=>(r[1]||'').trim()===payload.teacher&&(r[3]||'').trim()===payload.supervisor
+      &&parseSheetTimestamps(r[0]).some(ts=>Math.abs(ts-submittedAt)<60000));
+  }catch(e){return false}
+}
+$('supervisionForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const status=$('formStatus'), submit=$('supervisionForm').querySelector('[type="submit"]');
+  const fail=t=>{status.className='form-status error';status.textContent=t};
+  if(!SCRIPT_URL) return fail('ยังไม่ได้ตั้งค่าการเชื่อมต่อสำหรับบันทึกข้อมูล กรุณากำหนด SCRIPT_URL ก่อน');
+  const sport=$('formSport').value===SPORT_OTHER?$('formSportOther').value.trim():$('formSport').value;
+  const supervisor=$('formSupervisor').value===OTHER_VAL?$('formSupervisorOther').value.trim():$('formSupervisor').value;
+  if(!sport) return fail('กรุณาเลือกหรือระบุชนิดกีฬา');
+  if(!supervisor) return fail('กรุณาเลือกหรือระบุชื่อผู้นิเทศ');
+  const payload={
+    passcode:$('formPass').value, teacher:$('formTeacher').value.trim(),
+    subject:`พลศึกษา (${sport}) ${$('formSubject').value.trim()}`.trim(), supervisor,
+    scores:[1,2,3,4,5].map(i=>+$('score'+i).value), note:$('formNote').value.trim()
+  };
+  submit.disabled=true; submit.textContent='กำลังบันทึก…';
+  status.className='form-status'; status.textContent='';
+  const submittedAt=Date.now(); let sendFailed=false, ok=false;
+  try{
+    const ac=new AbortController(), timer=setTimeout(()=>ac.abort(),6000);
+    try{ await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload),signal:ac.signal}); }
+    finally{ clearTimeout(timer); }
+  }catch(err){ sendFailed=err.name!=='AbortError'; console.error('Save supervision failed:',err); }
+  submit.textContent='กำลังตรวจสอบ…';
+  for(let i=0;i<5&&!ok;i++){ await new Promise(r=>setTimeout(r,1500)); ok=await wasActuallySaved(payload,submittedAt); }
+  if(ok){
+    status.className='form-status success'; status.textContent='บันทึกการนิเทศเรียบร้อยแล้ว';
+    $('supervisionForm').reset(); syncOther();
+    await load();
+  }else fail(sendFailed?'เชื่อมต่อไม่ได้และตรวจสอบไม่พบข้อมูลที่บันทึก กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่':'บันทึกไม่สำเร็จ หรือตรวจสอบไม่พบข้อมูลในชีต กรุณาตรวจสอบรหัสผู้นิเทศแล้วลองใหม่อีกครั้ง');
+  submit.disabled=false; submit.innerHTML='<span data-ic="check"></span> บันทึกข้อมูล'; hydrateIcons($('supervisionForm'));
+});
+load(); setInterval(()=>{if(!demo&&!$('dlg').open&&!$('detailDlg').open)load()},120000);
+</script>
+</body>
+</html>
